@@ -98,8 +98,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         latlngs.add(latLng2);
         latlngs.add(latLng3);
         latlngSembuh.add(latLng4);
-        latlngSembuh.add(latLng5);
-        latlngSembuh.add(latLng6);
+        latlngSembuh.add(latLng5);        latlngSembuh.add(latLng6);
         latlngSembuh.add(latLng7);
         latlngPositif.add(latLng8);
         latlngPositif.add(latLng9);
