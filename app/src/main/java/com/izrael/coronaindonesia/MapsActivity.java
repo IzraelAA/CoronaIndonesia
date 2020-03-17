@@ -69,8 +69,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     LatLng latLng = new LatLng(-6.2758471,107.2544972);
     LatLng latLng1 = new LatLng(-6.3053208,106.8996445);
-    LatLng latLng2 = new LatLng(-6.340507,107.1939298);
+    LatLng latLng2 = new LatLng(-6.533905, 107.448048);
     LatLng latLng3 = new LatLng(-6.3410215,107.1801674);
+    LatLng latLng4 = new LatLng(-6.956922, 107.584691);
+    LatLng latLng5 = new LatLng(-6.927209, 107.614859);
+    LatLng latLng6 = new LatLng(-6.961360, 107.561492);
+    LatLng latLng7 = new LatLng(-6.597611, 106.805470);
+    LatLng latLng8 = new LatLng(-6.340507,107.1939298);
+    LatLng latLng9 = new LatLng(-6.598582, 106.801119);
+    LatLng latLng10 = new LatLng(-6.382692, 106.769069);
+    LatLng latLng11 = new LatLng(-6.381226, 106.760376);
+    LatLng latLng12 = new LatLng(-6.404720, 106.796021);
 
     private MarkerOptions options = new MarkerOptions();
     private ArrayList<LatLng> latlngs = new ArrayList<>();
@@ -88,6 +97,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         latlngs.add(latLng1);
         latlngs.add(latLng2);
         latlngs.add(latLng3);
+        latlngSembuh.add(latLng4);
+        latlngSembuh.add(latLng5);
+        latlngSembuh.add(latLng6);
+        latlngSembuh.add(latLng7);
+        latlngPositif.add(latLng8);
+        latlngPositif.add(latLng9);
+        latlngPositif.add(latLng10);
+        latlngPositif.add(latLng11);
+        latlngPositif.add(latLng12);
     }
 
 
