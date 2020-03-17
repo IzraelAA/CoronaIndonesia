@@ -1,6 +1,7 @@
 package com.izrael.coronaindonesia;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
@@ -113,20 +114,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         for (int i = 0;i<latlngs.size();i++){
-            mMap.addMarker(new MarkerOptions().position(latlngs.get(i)).title("Terindekasi").icon(BitmapDescriptorFactory.fromResource(R.drawable.merah1)));
+            mMap.addMarker(new MarkerOptions().position(latlngs.get(i)).title("Terindekasi").icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_location_on_red_24dp)));
             mMap.getUiSettings().setZoomControlsEnabled(true);
             mMap.moveCamera(CameraUpdateFactory.newLatLng(latlngs.get(i)));
         }
         for (int i = 0;i<latlngPositif.size();i++){
-            mMap.addMarker(new MarkerOptions().position(latlngPositif.get(i)).title("Terjangkit").icon(BitmapDescriptorFactory.fromResource(R.drawable.kuning1)));
+            mMap.addMarker(new MarkerOptions().position(latlngPositif.get(i)).title("Terjangkit").icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_blue_24dp)));
             mMap.getUiSettings().setZoomControlsEnabled(true);
             mMap.moveCamera(CameraUpdateFactory.newLatLng(latlngPositif.get(i)));
         }
         for (int i = 0;i<latlngSembuh.size();i++){
-            mMap.addMarker(new MarkerOptions().position(latlngSembuh.get(i)).title("Sembuh").icon(BitmapDescriptorFactory.fromResource(R.drawable.biru1)));
+            mMap.addMarker(new MarkerOptions().position(latlngSembuh.get(i)).title("Sembuh").icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_black_24dp)));
             mMap.getUiSettings().setZoomControlsEnabled(true);
             mMap.moveCamera(CameraUpdateFactory.newLatLng(latlngSembuh.get(i)));
         }
+        mMap.animateCamera(CameraUpdateFactory.zoomIn());
+        // Zoom out to zoom level 10, animating with a duration of 2 seconds.
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(15), 2000, null);
         // Add a marker in Sydney and move the camera
     }
 }
