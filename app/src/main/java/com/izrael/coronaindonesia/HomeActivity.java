@@ -14,16 +14,15 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.item_home);
-        CardView cardView = findViewById(R.id.cek);
-        cardView.setOnClickListener(new View.OnClickListener() {
+        Button login = findViewById(R.id.Login);
+        Button register = findViewById(R.id.Register);
+        register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(HomeActivity.this,MapsActivity.class));
+                startActivity(new Intent(HomeActivity.this,Registrasi.class));
             }
         });
-        ImageView imageView = findViewById(R.id.gambar);
-
-        imageView.setOnClickListener(new View.OnClickListener() {
+        login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(HomeActivity.this,MapsActivity.class));
