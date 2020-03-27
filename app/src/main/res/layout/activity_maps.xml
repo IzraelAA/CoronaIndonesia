@@ -1,54 +1,174 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
    android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
+    android:background="#CE252525"
     android:layout_height="match_parent"
     tools:context=".MapsActivity">
-    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:map="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".MapsActivity" />
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/sembuh"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="19dp"
-        android:layout_marginEnd="40dp"
-        android:drawableStart="@drawable/ic_place_blue_24dp"
-        android:text="Sembuh" />
+        <Button
+            android:textStyle="bold"
+            android:textColor="#58CCE4"
+            android:text="ODP"
+            android:id="@+id/btnOdp"
+            android:layout_width="115dp"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:background="#00000000" />
 
-    <TextView
-        android:id="@+id/terindekasi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/sembuh"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="17dp"
-        android:drawableStart="@drawable/ic_place_black_24dp"
-        android:text="Terindekasi" />
+        <Button
+            android:id="@+id/btnPdp"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_toEndOf="@+id/btnOdp"
+            android:background="#00000000"
+            android:text="PDP"
+            android:textColor="#F9AE58"
+            android:textStyle="bold" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        <Button
+            android:textStyle="bold"
+            android:textColor="#E84553"
+            android:text="positive"
+            android:id="@+id/btnPositive"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_toEndOf="@+id/btnPdp"
+            android:background="#00000000"/>
 
-        android:layout_below="@+id/terindekasi"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="7dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="20dp"
-        android:drawableStart="@drawable/ic_location_on_red_24dp"
-        android:text="Terinfeksi" />
-</RelativeLayout>
+        <androidx.cardview.widget.CardView
+            android:layout_width="177dp"
+            android:layout_height="50dp"
+            map:cardBackgroundColor="@drawable/bgsembuhmati"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="100dp">
+
+            <TextView
+                android:textStyle="bold"
+                android:background="#00000000"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Sembuh"
+                android:textColor="#6CF45E"
+                android:textAlignment="center"
+                android:textSize="30dp" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="177dp"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginHorizontal="20dp"
+            map:cardBackgroundColor="@drawable/bgsembuhmati"
+            android:background="@drawable/bgsembuhmati"
+            android:layout_marginTop="100dp"
+            android:layout_marginEnd="20dp">
+
+            <TextView
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:background="#00000000"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Meninggal"
+                android:textAlignment="center"
+                android:textSize="30dp" />
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            map:cardCornerRadius="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="170dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp">
+
+            <RelativeLayout
+                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="500dp">
+
+                <fragment
+
+                    android:id="@+id/map"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:context=".MapsActivity" />
+
+                <TextView
+                    android:textStyle="bold"
+                    android:id="@+id/sembuh"
+                    android:layout_width="88dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="255dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="27dp"
+                    android:drawableStart="@drawable/ic_place_blue_24dp"
+                    android:text="ODP" />
+
+                <TextView
+                    android:textStyle="bold"
+                    android:id="@+id/terindekasi"
+                    android:layout_width="107dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/sembuh"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="255dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="7dp"
+                    android:drawableStart="@drawable/ic_place_black_24dp"
+                    android:text="PDP" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:layout_below="@+id/terindekasi"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="255dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:drawableStart="@drawable/ic_location_on_red_24dp"
+                    android:text="Positive" />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
+</ScrollView>
