@@ -1,45 +1,44 @@
 package com.izrael.coronaindonesia;
 
-import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentActivity;
+        import androidx.annotation.DrawableRes;
+        import androidx.annotation.NonNull;
+        import androidx.core.content.ContextCompat;
+        import androidx.fragment.app.FragmentActivity;
 
-import android.Manifest;
-import android.content.Context;
-import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.location.Location;
-import android.location.LocationManager;
-import android.os.Build;
-import android.os.Bundle;
-import android.util.Log;
-import android.widget.Button;
-import android.widget.TextView;
+        import android.Manifest;
+        import android.content.Context;
+        import android.content.pm.PackageManager;
+        import android.graphics.Bitmap;
+        import android.graphics.Canvas;
+        import android.graphics.Color;
+        import android.graphics.drawable.Drawable;
+        import android.location.Location;
+        import android.location.LocationManager;
+        import android.os.Build;
+        import android.os.Bundle;
+        import android.util.Log;
+        import android.widget.Button;
+        import android.widget.TextView;
 
-import com.google.android.gms.maps.CameraUpdate;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.Dash;
-import com.google.android.gms.maps.model.Dot;
-import com.google.android.gms.maps.model.Gap;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.PatternItem;
-import com.google.android.gms.maps.model.Polyline;
-import com.google.android.gms.maps.model.PolylineOptions;
-import com.google.maps.android.data.geojson.GeoJsonLayer;
-import com.google.maps.android.data.geojson.GeoJsonPolygonStyle;
-
-import org.json.JSONException;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+        import com.google.android.gms.maps.CameraUpdate;
+        import com.google.android.gms.maps.CameraUpdateFactory;
+        import com.google.android.gms.maps.GoogleMap;
+        import com.google.android.gms.maps.OnMapReadyCallback;
+        import com.google.android.gms.maps.SupportMapFragment;
+        import com.google.android.gms.maps.model.BitmapDescriptor;
+        import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+        import com.google.android.gms.maps.model.Dash;
+        import com.google.android.gms.maps.model.Dot;
+        import com.google.android.gms.maps.model.Gap;
+        import com.google.android.gms.maps.model.LatLng;
+        import com.google.android.gms.maps.model.Marker;
+        import com.google.android.gms.maps.model.MarkerOptions;
+        import com.google.android.gms.maps.model.PatternItem;
+        import com.google.android.gms.maps.model.Polyline;
+        import com.google.android.gms.maps.model.PolylineOptions;
+        import java.util.ArrayList;
+        import java.util.Arrays;
+        import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -114,23 +113,58 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         for (int i = 0;i<latlngs.size();i++){
-            mMap.addMarker(new MarkerOptions().position(latlngs.get(i)).title("Terindekasi").icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_location_on_red_24dp)));
+            mMap.addMarker(new MarkerOptions().position(latlngs.get(i)).title("Terindekasi").icon(bitmapDescriptorFromVector1(this,R.drawable.ic_place_blue_24dp)));
             mMap.getUiSettings().setZoomControlsEnabled(true);
             mMap.moveCamera(CameraUpdateFactory.newLatLng(latlngs.get(i)));
         }
         for (int i = 0;i<latlngPositif.size();i++){
-            mMap.addMarker(new MarkerOptions().position(latlngPositif.get(i)).title("Terjangkit").icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_blue_24dp)));
+            mMap.addMarker(new MarkerOptions().position(latlngPositif.get(i)).title("Terjangkit").icon(bitmapDescriptorFromVector(this, R.drawable.ic_location_on_red_24dp)));
             mMap.getUiSettings().setZoomControlsEnabled(true);
             mMap.moveCamera(CameraUpdateFactory.newLatLng(latlngPositif.get(i)));
         }
         for (int i = 0;i<latlngSembuh.size();i++){
-            mMap.addMarker(new MarkerOptions().position(latlngSembuh.get(i)).title("Sembuh").icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_black_24dp)));
+            mMap.addMarker(new MarkerOptions().position(latlngSembuh.get(i)).title("Sembuh").icon(bitmapDescriptorFromVector2(this,R.drawable.ic_place_black_24dp)));
             mMap.getUiSettings().setZoomControlsEnabled(true);
             mMap.moveCamera(CameraUpdateFactory.newLatLng(latlngSembuh.get(i)));
         }
+
         mMap.animateCamera(CameraUpdateFactory.zoomIn());
         // Zoom out to zoom level 10, animating with a duration of 2 seconds.
         mMap.animateCamera(CameraUpdateFactory.zoomTo(15), 2000, null);
         // Add a marker in Sydney and move the camera
     }
+    private BitmapDescriptor bitmapDescriptorFromVector(Context context, @DrawableRes int vectorDrawableResourceId) {
+        Drawable background = ContextCompat.getDrawable(context, R.drawable.ic_location_on_red_24dp);
+        background.setBounds(0, 0, background.getIntrinsicWidth(), background.getIntrinsicHeight());
+        Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorDrawableResourceId);
+        vectorDrawable.setBounds(40, 20, vectorDrawable.getIntrinsicWidth() + 40, vectorDrawable.getIntrinsicHeight() + 20);
+        Bitmap bitmap = Bitmap.createBitmap(background.getIntrinsicWidth(), background.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        background.draw(canvas);
+        vectorDrawable.draw(canvas);
+        return BitmapDescriptorFactory.fromBitmap(bitmap);
+    }
+    private BitmapDescriptor bitmapDescriptorFromVector1(Context context, @DrawableRes int vectorDrawableResourceId) {
+        Drawable background = ContextCompat.getDrawable(context, R.drawable.ic_place_blue_24dp);
+        background.setBounds(0, 0, background.getIntrinsicWidth(), background.getIntrinsicHeight());
+        Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorDrawableResourceId);
+        vectorDrawable.setBounds(40, 20, vectorDrawable.getIntrinsicWidth() + 40, vectorDrawable.getIntrinsicHeight() + 20);
+        Bitmap bitmap = Bitmap.createBitmap(background.getIntrinsicWidth(), background.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        background.draw(canvas);
+        vectorDrawable.draw(canvas);
+        return BitmapDescriptorFactory.fromBitmap(bitmap);
+    }
+    private BitmapDescriptor bitmapDescriptorFromVector2(Context context, @DrawableRes int vectorDrawableResourceId) {
+        Drawable background = ContextCompat.getDrawable(context, R.drawable.ic_place_black_24dp);
+        background.setBounds(0, 0, background.getIntrinsicWidth(), background.getIntrinsicHeight());
+        Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorDrawableResourceId);
+        vectorDrawable.setBounds(40, 20, vectorDrawable.getIntrinsicWidth() + 40, vectorDrawable.getIntrinsicHeight() + 20);
+        Bitmap bitmap = Bitmap.createBitmap(background.getIntrinsicWidth(), background.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        background.draw(canvas);
+        vectorDrawable.draw(canvas);
+        return BitmapDescriptorFactory.fromBitmap(bitmap);
+    }
 }
+
