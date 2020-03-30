@@ -108,9 +108,8 @@ public class HomeActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("aaa", "signInWithCredential:success");
-
-                            progressBar.setVisibility(View.GONE);
                             startActivity(new Intent(HomeActivity.this,MapsActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                            progressBar.setVisibility(View.GONE);
                         } else {
                             // Sign in failed, display a message and update the UI
                             Log.w("aaa", "signInWithCredential:failure", task.getException());

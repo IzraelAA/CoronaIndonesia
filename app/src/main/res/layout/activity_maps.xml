@@ -129,12 +129,12 @@ map:menu="@menu/main_menu"
             map:cardCornerRadius="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginBottom="20dp">
 
             <FrameLayout
-                android:layout_margin="10dp"
+                android:layout_margin="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="500dp">
 
@@ -153,6 +153,7 @@ map:menu="@menu/main_menu"
     android:background="@null"
     >
 <LinearLayout
+    android:layout_marginEnd="5dp"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -187,6 +188,7 @@ map:menu="@menu/main_menu"
         android:textStyle="bold"
         android:layout_below="@+id/terindekasi"
         android:layout_marginTop="5dp"
+
         android:layout_marginBottom="20dp"
         android:drawableStart="@drawable/ic_location_on_red_24dp"
         android:text="Positive" />
