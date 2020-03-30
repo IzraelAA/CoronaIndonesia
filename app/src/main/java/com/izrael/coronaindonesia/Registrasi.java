@@ -31,12 +31,14 @@ public class Registrasi extends AppCompatActivity {
 
     private TextInputLayout layoutnama, layoutpassword, layoutnik , layoutnohp;
     String nama,password,nik,nohp,codesend;
+    ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registrasi);
         Button Registrasi = findViewById(R.id.Register);
         layoutnohp = findViewById(R.id.NoHp);
+        progressBar = findViewById(R.id.progressbar);
 
         Registrasi.setOnClickListener(new View.OnClickListener() {
             @Override

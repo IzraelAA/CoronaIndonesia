@@ -30,6 +30,7 @@ public class verifcation extends AppCompatActivity {
 
     private TextInputLayout code;
     private FirebaseAuth mAuth;
+    ProgressBar progressBar;
     DatabaseReference reference;
     String            nama,password,nik,nohp,codesend;
     @Override
@@ -37,6 +38,7 @@ public class verifcation extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verifcation);
         code = findViewById(R.id.code);
+        progressBar = findViewById(R.id.progressbar);
         final Button verif  = findViewById(R.id.Register);
         TextView nonya = findViewById(R.id.textnohp);
         Bundle       bundle = getIntent().getExtras();
@@ -47,6 +49,7 @@ public class verifcation extends AppCompatActivity {
         verif.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
                 verfiysigin();
             }
         });
@@ -85,6 +88,8 @@ public class verifcation extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
+
+                                        progressBar.setVisibility(View.GONE);
                                         startActivity(new Intent(verifcation.this,Test_covid.class).putExtra("userid",userid).putExtra("nohp",nohp));
                                         finish();
                                     }
@@ -105,11 +110,12 @@ public class verifcation extends AppCompatActivity {
         @Override
         public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
             signInWithPhoneAuthCredential(phoneAuthCredential);
+            Toast.makeText(verifcation.this,"Nomer udah terdaftar",Toast.LENGTH_LONG);
         }
 
         @Override
         public void onVerificationFailed(@NonNull FirebaseException e) {
-
+            Toast.makeText(verifcation.this,"Gagal",Toast.LENGTH_LONG);
             Log.d("aaa", "signInWithCredential:" +e);
 
         }

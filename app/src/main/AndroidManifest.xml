@@ -18,9 +18,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".thanks"></activity>
+        <activity android:name=".Splashscreen"
+            android:noHistory="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".thanks"
+            android:noHistory="true"  />
         <activity android:name=".verifcation" />
-        <activity android:name=".Test_covid"
+        <activity
+            android:name=".Test_covid"
             android:noHistory="true" />
         <activity android:name=".Registrasi" />
         <!--
@@ -35,15 +45,10 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".MapsActivity"
-            android:noHistory="true" />
-        <activity android:name=".HomeActivity"
+        <activity android:name=".MapsActivity" />
+        <activity
+            android:name=".HomeActivity"
             android:noHistory="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
     </application>

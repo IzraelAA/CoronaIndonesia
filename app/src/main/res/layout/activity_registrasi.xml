@@ -9,6 +9,7 @@
         android:layout_height="wrap_content"
         android:title="Corona Indonesia"
         android:background="#FFF"/>
+
     <androidx.cardview.widget.CardView
         android:layout_margin="10dp"
         android:id="@+id/cek"

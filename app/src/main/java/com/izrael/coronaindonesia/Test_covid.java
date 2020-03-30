@@ -17,6 +17,7 @@ import java.util.HashMap;
 
 public class Test_covid extends AppCompatActivity {
     String            userid,nohp;
+    ProgressBar progressBar;
     DatabaseReference reference;
     RadioButton radioButton1,radioButton2,radioButton3,radioButton4,radioButton5,radioButton6,radioButton7,radioButton8;
     String r1,r2,r3,r4,r5,r6,r7,r8;
@@ -27,6 +28,7 @@ public class Test_covid extends AppCompatActivity {
         setContentView(R.layout.activity_test_covid);
         radioGroup1 = findViewById(R.id.radio1);
         radioGroup2 = findViewById(R.id.radio2);
+        progressBar = findViewById(R.id.progressbar);
         radioGroup3 = findViewById(R.id.radio3);
         radioGroup4 = findViewById(R.id.radio4);
         radioGroup5 = findViewById(R.id.radio5);
@@ -40,7 +42,7 @@ public class Test_covid extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                progressBar.setVisibility(View.VISIBLE);
                 int radioId1 = radioGroup1.getCheckedRadioButtonId();
                 int radioId2 = radioGroup2.getCheckedRadioButtonId();
                 int radioId3 = radioGroup3.getCheckedRadioButtonId();
@@ -83,7 +85,7 @@ public class Test_covid extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-
+                            progressBar.setVisibility(View.GONE);
                             startActivity(new Intent(Test_covid.this,thanks.class));
                             finish();
                         }

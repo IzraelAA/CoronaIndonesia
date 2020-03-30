@@ -9,6 +9,11 @@
         android:layout_height="wrap_content"
         android:title="Corona Indonesia"
         android:background="#FFF"/>
+    <ProgressBar
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/progressbar"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

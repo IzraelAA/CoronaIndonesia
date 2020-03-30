@@ -15,7 +15,8 @@
         android:subtitle="Silakan isi sesuai kondisi kamu"
         android:title="Corona Indonesia"
         android:background="#FFF"/>
-        <androidx.cardview.widget.CardView
+
+         <androidx.cardview.widget.CardView
             android:layout_margin="10dp"
             android:elevation="6dp"
             app:cardCornerRadius="20dp"
@@ -294,6 +295,12 @@
                 </RadioGroup>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+        <ProgressBar
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/progressbar"/>
+
         <LinearLayout
             android:layout_marginTop="50dp"
             android:layout_marginBottom="20dp"

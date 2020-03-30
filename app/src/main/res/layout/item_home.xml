@@ -9,6 +9,18 @@
         android:layout_height="wrap_content"
         android:title="Corona Indonesia"
         android:background="#FFF"/>
+<LinearLayout
+    android:gravity="center"
+    android:layout_gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/progressbar"/>
+</LinearLayout>
     <androidx.cardview.widget.CardView
         android:layout_margin="10dp"
         android:id="@+id/cek"

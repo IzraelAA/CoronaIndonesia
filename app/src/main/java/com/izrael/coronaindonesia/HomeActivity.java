@@ -30,6 +30,7 @@ import java.util.concurrent.TimeUnit;
 
 public class HomeActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
+    ProgressBar progressBar;
     FirebaseUser user;
     String nohp ;
     private TextInputLayout layoutnama, layoutpassword, layoutnik , layoutnohp;
@@ -39,6 +40,7 @@ public class HomeActivity extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.item_home);
         layoutnohp = findViewById(R.id.NoHp);
+        progressBar = findViewById(R.id.progressbar);
         Button login = findViewById(R.id.Login);
         Button register = findViewById(R.id.Register);
         mAuth = FirebaseAuth.getInstance();
@@ -57,6 +59,7 @@ public class HomeActivity extends AppCompatActivity {
                     layoutnohp.setError("Phone number is required");
                     layoutnohp.requestFocus();
                 }else {
+                    progressBar.setVisibility(View.VISIBLE);
                     cekverif();
                 }
 
@@ -68,9 +71,12 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
                 signInWithPhoneAuthCredential(phoneAuthCredential);
+
+                progressBar.setVisibility(View.GONE);
             }
             @Override
             public void onVerificationFailed(@NonNull FirebaseException e) {
+                progressBar.setVisibility(View.GONE);
                 Toast.makeText(HomeActivity.this, "Gagal", Toast.LENGTH_SHORT).show();
                 Log.d("aaa", "signInWithCredential:" +e);
             }
@@ -78,6 +84,7 @@ public class HomeActivity extends AppCompatActivity {
             public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
                 super.onCodeSent(s, forceResendingToken);
                 Log.d("haha", "onCodeSent: "+s);
+                progressBar.setVisibility(View.GONE);
                 Toast.makeText(HomeActivity.this, "Nomer belum terdaftar", Toast.LENGTH_SHORT).show();
             }
         };
@@ -102,6 +109,7 @@ public class HomeActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("aaa", "signInWithCredential:success");
 
+                            progressBar.setVisibility(View.GONE);
                             startActivity(new Intent(HomeActivity.this,MapsActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
                         } else {
                             // Sign in failed, display a message and update the UI
@@ -112,12 +120,5 @@ public class HomeActivity extends AppCompatActivity {
                         }
                     }
                 });
-    }
-     @Override
-    protected void onStart() {
-        super.onStart();
-        if (user != null) {
-            startActivity(new Intent(HomeActivity.this,MapsActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
-        }
     }
 }
