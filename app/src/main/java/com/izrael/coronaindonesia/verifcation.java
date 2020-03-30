@@ -41,6 +41,7 @@ public class verifcation extends AppCompatActivity {
         progressBar = findViewById(R.id.progressbar);
         final Button verif  = findViewById(R.id.Register);
         TextView nonya = findViewById(R.id.textnohp);
+        progressBar.setVisibility(View.GONE);
         Bundle       bundle = getIntent().getExtras();
         nohp = bundle.getString("nohp");
         nonya.setText(nohp);

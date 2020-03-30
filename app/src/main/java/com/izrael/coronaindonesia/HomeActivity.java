@@ -45,6 +45,7 @@ public class HomeActivity extends AppCompatActivity {
         Button register = findViewById(R.id.Register);
         mAuth = FirebaseAuth.getInstance();
 
+        progressBar.setVisibility(View.GONE);
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,7 +60,6 @@ public class HomeActivity extends AppCompatActivity {
                     layoutnohp.setError("Phone number is required");
                     layoutnohp.requestFocus();
                 }else {
-                    progressBar.setVisibility(View.VISIBLE);
                     cekverif();
                 }
 
@@ -72,7 +72,6 @@ public class HomeActivity extends AppCompatActivity {
             public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
                 signInWithPhoneAuthCredential(phoneAuthCredential);
 
-                progressBar.setVisibility(View.GONE);
             }
             @Override
             public void onVerificationFailed(@NonNull FirebaseException e) {
@@ -92,6 +91,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private void cekverif() {
 
+        progressBar.setVisibility(View.VISIBLE);
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 nohp,        // Phone number to verify
                 60,                 // Timeout duration
