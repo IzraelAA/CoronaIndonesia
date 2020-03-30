@@ -36,45 +36,27 @@ public class Registrasi extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registrasi);
         Button Registrasi = findViewById(R.id.Register);
-        layoutnama = findViewById(R.id.nama);
-        layoutpassword = findViewById(R.id.Password);
-        layoutnik = findViewById(R.id.Nik);
         layoutnohp = findViewById(R.id.NoHp);
 
         Registrasi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                nama = layoutnama.getEditText().getText().toString();
-                password   =layoutpassword.getEditText().getText().toString();
-                nik   = layoutnik.getEditText().getText().toString();
                 nohp = layoutnohp.getEditText().getText().toString();
                 if (nohp.isEmpty()){
                     layoutnohp.setError("Phone number is required");
                     layoutnohp.requestFocus();
-                }else if (nama.isEmpty()){
-                    layoutnama.setError("Nama is required");
-                    layoutnama.requestFocus();
-                }else if (password.isEmpty()){
-                    layoutpassword.setError("Nama is required");
-                    layoutpassword.requestFocus();
-                }else if (nik.isEmpty()){
-                    layoutnik.setError("Nik is required");
-                    layoutnik.requestFocus();
                 }else {
-                    confrimInput(nama,nik,password,nohp);
+                    confrimInput(nohp);
                 }
             }
         });
 
 
     }
-    public void confrimInput(final String nama, String nik, String password,String nohp) {
+    public void confrimInput(String nohp) {
            // OnVerificationStateChangedCallbacks
 
                     Intent intent = new Intent(Registrasi.this,verifcation.class);
-                    intent.putExtra("nama",nama);
-                    intent.putExtra("nik",nik);
-                    intent.putExtra("password",password);
                     intent.putExtra("nohp",nohp);
                     startActivity(intent);
 

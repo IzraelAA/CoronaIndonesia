@@ -18,8 +18,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".verifcation"></activity>
-        <activity android:name=".Test_covid" />
+        <activity android:name=".thanks"></activity>
+        <activity android:name=".verifcation" />
+        <activity android:name=".Test_covid"
+            android:noHistory="true" />
         <activity android:name=".Registrasi" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -33,8 +35,10 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".MapsActivity" />
-        <activity android:name=".HomeActivity">
+        <activity android:name=".MapsActivity"
+            android:noHistory="true" />
+        <activity android:name=".HomeActivity"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

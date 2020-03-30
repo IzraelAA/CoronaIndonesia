@@ -33,6 +33,7 @@
                     android:layout_height="wrap_content"
                     android:text="1. Selama 7 hari terakhir, apakah kamu merasakan Demam?"/>
                 <RadioGroup
+                    android:id="@+id/radio1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <RadioButton
@@ -66,6 +67,7 @@
                     android:layout_height="wrap_content"
                     android:text="2. Adakah disertai dengan batuk dan pilek?"/>
                 <RadioGroup
+                    android:id="@+id/radio2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <RadioButton
@@ -101,6 +103,7 @@
                     android:text="3. Apakah kamu merasakan sakit tenggorokan? " />
 
                 <RadioGroup
+                    android:id="@+id/radio3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <RadioButton
@@ -135,6 +138,7 @@
                     android:layout_height="wrap_content"
                     android:text="4. Saat kamu bernafas, adakah dada terasa sesak/tertekan?"/>
                 <RadioGroup
+                    android:id="@+id/radio4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <RadioButton
@@ -169,6 +173,7 @@
                     android:layout_height="wrap_content"
                     android:text="5. Apakah kamu pernah bertemu dengan orang yang terinfeksi COVID-19?"/>
                 <RadioGroup
+                    android:id="@+id/radio5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <RadioButton
@@ -203,6 +208,7 @@
                     android:layout_height="wrap_content"
                     android:text="6. Dalam 14 hari terakhir, apakah kamu baru pulang dari luar negeri?"/>
                 <RadioGroup
+                    android:id="@+id/radio6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <RadioButton
@@ -237,6 +243,7 @@
                     android:layout_height="wrap_content"
                     android:text="7. Apakah kamu tinggal dikota yang sedang darurat COVID-19?"/>
                 <RadioGroup
+                    android:id="@+id/radio7"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <RadioButton
@@ -271,6 +278,7 @@
                     android:layout_height="wrap_content"
                     android:text="8. Pernahkah kamu mengunjungi pasien COVID-19 dirawat?"/>
                 <RadioGroup
+                    android:id="@+id/radio8"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <RadioButton

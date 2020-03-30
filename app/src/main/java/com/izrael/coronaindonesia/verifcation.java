@@ -38,13 +38,12 @@ public class verifcation extends AppCompatActivity {
         setContentView(R.layout.activity_verifcation);
         code = findViewById(R.id.code);
         final Button verif  = findViewById(R.id.Register);
+        TextView nonya = findViewById(R.id.textnohp);
         Bundle       bundle = getIntent().getExtras();
-        nama = bundle.getString("nama");
-        nik = bundle.getString("nik");
-        password = bundle.getString("password");
         nohp = bundle.getString("nohp");
+        nonya.setText(nohp);
         mAuth = FirebaseAuth.getInstance();
-        Log.d("pp:","pp"+nohp);
+        Log.d("pp:","pp : "+nohp);
         verif.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,26 +76,20 @@ public class verifcation extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("aaa", "signInWithCredential:success");
 
-                            FirebaseUser user         = task.getResult().getUser();
-                            String userid = user.getUid();
+                            FirebaseUser user   = task.getResult().getUser();
+                            final String userid = user.getUid();
                             reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
                             HashMap<String, String> hashmap = new HashMap<>();
-                            hashmap.put("id", userid);
-                            hashmap.put("nama", nama);
-                            hashmap.put("nik", nik);
-                            hashmap.put("password", password);
                             hashmap.put("nohp", nohp);
                             reference.setValue(hashmap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
-
-                                        startActivity(new Intent(verifcation.this,Test_covid.class));
+                                        startActivity(new Intent(verifcation.this,Test_covid.class).putExtra("userid",userid).putExtra("nohp",nohp));
                                         finish();
                                     }
                                 }
                             });
-                            // ...
                         } else {
                             // Sign in failed, display a message and update the UI
                             Log.w("aaa", "signInWithCredential:failure", task.getException());
@@ -107,21 +100,26 @@ public class verifcation extends AppCompatActivity {
                     }
                 });
     }
+
     PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
         @Override
         public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-
+            signInWithPhoneAuthCredential(phoneAuthCredential);
         }
 
         @Override
         public void onVerificationFailed(@NonNull FirebaseException e) {
+
+            Log.d("aaa", "signInWithCredential:" +e);
 
         }
 
         @Override
         public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
             super.onCodeSent(s, forceResendingToken);
-            codesend = s;
+            String b =s;
+            Log.d("haha", "onCodeSent: "+b);
+            codesend = b;
         }
     };
 }

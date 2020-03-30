@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "668472831032",
+    "firebase_url": "https://corona-indonesia-f0b09.firebaseio.com",
+    "project_id": "corona-indonesia-f0b09",
+    "storage_bucket": "corona-indonesia-f0b09.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:668472831032:android:ab2d7b78b41cf6fa2bcacd",
+        "android_client_info": {
+          "package_name": "com.izrael.coronaindonesia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "668472831032-o9579li7h84eptdkfe1ufq23frk1tfp2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.izrael.coronaindonesia",
+            "certificate_hash": "61e454be4d7a9fa26924dc8abcc6492ab252254b"
+          }
+        },
+        {
+          "client_id": "668472831032-kd3a8pki10m5v4ba3jr5k65hktolpkvk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAq4HqV65pdypnSyu6QCWv9FRy9ogyC59o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "668472831032-kd3a8pki10m5v4ba3jr5k65hktolpkvk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

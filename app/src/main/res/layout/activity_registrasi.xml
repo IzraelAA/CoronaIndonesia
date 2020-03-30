@@ -34,45 +34,6 @@
                 android:textColorHint="#000"
                 app:hintTextColor="#000"
                 android:layout_marginTop="10dp"
-                android:id="@+id/nama"
-
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Nama">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/inputNama"
-                    android:drawablePadding="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"/>
-
-            </com.google.android.material.textfield.TextInputLayout>
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_marginHorizontal="10dp"
-                android:textColorHint="#000"
-                app:hintTextColor="#000"
-                android:layout_marginTop="10dp"
-                android:id="@+id/Nik"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Nik">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/inputNik"
-                    android:drawablePadding="5dp"
-
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"/>
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_marginHorizontal="10dp"
-                android:textColorHint="#000"
-                app:hintTextColor="#000"
-                android:layout_marginTop="10dp"
                 android:id="@+id/NoHp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -88,25 +49,13 @@
                     android:inputType="phone"/>
 
             </com.google.android.material.textfield.TextInputLayout>
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_marginHorizontal="10dp"
-                android:textColorHint="#000"
-                app:hintTextColor="#000"
-                android:layout_marginTop="10dp"
-                android:id="@+id/Password"
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="50dp"
                 android:layout_width="match_parent"
-                app:passwordToggleEnabled="true"
                 android:layout_height="wrap_content"
-                android:hint="Password">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/inputPassword"
-                    android:drawablePadding="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPassword"/>
-
-            </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginHorizontal="10dp"
+                android:text="Contoh +6281234567890"/>
             <LinearLayout
                 android:layout_marginTop="100dp"
                 android:layout_marginBottom="20dp"

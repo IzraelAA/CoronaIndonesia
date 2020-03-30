@@ -34,12 +34,16 @@
                     android:text="Verification"
                     android:textSize="29sp"
                     android:textStyle="bold"/>
-
+                <TextView
+                    android:id="@+id/textnohp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="+6283130015737"
+                    android:layout_marginHorizontal="10dp"/>
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_marginHorizontal="10dp"
                     android:textColorHint="#000"
                     app:hintTextColor="#000"
-                    android:layout_marginTop="10dp"
                     android:id="@+id/code"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -54,20 +58,24 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
                 <LinearLayout
-                    android:layout_marginTop="100dp"
-                    android:layout_marginBottom="20dp"
-                    android:gravity="center"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="130dp"
+                    android:gravity="center">
 
                     <Button
 
                         android:id="@+id/Register"
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Submit"/>
+                        android:layout_gravity="center"
+                        android:text="Submit" />
                 </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="anda tidak mendapatkan code?kirim ulang"/>
+
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </LinearLayout>

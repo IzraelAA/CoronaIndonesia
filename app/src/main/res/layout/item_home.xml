@@ -34,36 +34,19 @@
                 android:textColorHint="#000"
                 app:hintTextColor="#000"
                 android:layout_marginTop="10dp"
-                android:id="@+id/nama"
+                android:id="@+id/NoHp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Nama">
+                android:hint="No Handphone">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/inputNama"
+                    android:id="@+id/inputNoHp"
                     android:drawablePadding="5dp"
+                    android:digits="0123456789+"
+                    android:text="+62"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"/>
-
-            </com.google.android.material.textfield.TextInputLayout>
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_marginHorizontal="10dp"
-                android:textColorHint="#000"
-                app:hintTextColor="#000"
-                android:layout_marginTop="10dp"
-                android:id="@+id/Password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:passwordToggleEnabled="true"
-                android:hint="Password">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/inputPassword"
-                    android:drawablePadding="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPassword"/>
+                    android:inputType="phone"/>
 
             </com.google.android.material.textfield.TextInputLayout>
          <LinearLayout
