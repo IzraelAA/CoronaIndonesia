@@ -23,22 +23,25 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
+
 import android.widget.*;
+
 public class BlankFragment extends Fragment {
 
     DatabaseReference reference;
-    FirebaseUser      user;
-    EditText nama,nik;
-    TextView nomer,warning;
+    FirebaseUser user;
+    EditText nama, nik;
+    TextView nomer, warning;
     Button btnsbmt;
     ProgressBar pg;
     String namateks;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View           v      = inflater.inflate(R.layout.fragment_blank, container, false);
-        nama   = v.findViewById(R.id.etname);
+        View v = inflater.inflate(R.layout.fragment_blank, container, false);
+        nama = v.findViewById(R.id.etname);
         user = FirebaseAuth.getInstance().getCurrentUser();
         warning = v.findViewById(R.id.warning);
         nomer = v.findViewById(R.id.nomer);
@@ -48,26 +51,25 @@ public class BlankFragment extends Fragment {
         btnsbmt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 upload();
             }
         });
-        String         userid = user.getUid();
+        String userid = user.getUid();
         nama.setText(namateks);
         reference = FirebaseDatabase.getInstance().getReference("Test").child(userid);
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-               profil p = dataSnapshot.getValue(profil.class);
-               nomer.setText("Nomer :"+p.getNohp());
-                Log.d("panca",""+p.getNama());
-                Log.d("panca",""+p.getNohp());
-               if (p.getNama().equals("")){
-                   warning.setVisibility(View.VISIBLE);
-               }else {
-                   namateks = p.getNama();
-                   warning.setVisibility(View.GONE);
-               }
+                profil p = dataSnapshot.getValue(profil.class);
+                nomer.setText("Nomer :" + p.getNohp());
+                Log.d("panca", "" + p.getNama());
+                Log.d("panca", "" + p.getNohp());
+                if (p.getNama().equals("")) {
+                    warning.setVisibility(View.VISIBLE);
+                } else {
+                    namateks = p.getNama();
+                    warning.setVisibility(View.GONE);
+                }
             }
 
             @Override
