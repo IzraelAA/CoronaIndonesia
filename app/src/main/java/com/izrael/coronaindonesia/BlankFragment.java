@@ -32,6 +32,7 @@ public class BlankFragment extends Fragment {
     TextView nomer,warning;
     Button btnsbmt;
     ProgressBar pg;
+    String namateks;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -52,7 +53,7 @@ public class BlankFragment extends Fragment {
             }
         });
         String         userid = user.getUid();
-        
+        nama.setText(namateks);
         reference = FirebaseDatabase.getInstance().getReference("Test").child(userid);
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -64,7 +65,7 @@ public class BlankFragment extends Fragment {
                if (p.getNama().equals("")){
                    warning.setVisibility(View.VISIBLE);
                }else {
-                   nama.setText(p.getNama());
+                   namateks = p.getNama();
                    warning.setVisibility(View.GONE);
                }
             }
@@ -80,15 +81,18 @@ public class BlankFragment extends Fragment {
     public void upload() {
         pg.setVisibility(View.VISIBLE);
         HashMap<String, Object> hashmap = new HashMap<>();
-
         hashmap.put("nama", nama.getText().toString());
         reference.updateChildren(hashmap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 pg.setVisibility(View.GONE);
-
             }
         });
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        nama.setText(namateks);
+    }
 }
