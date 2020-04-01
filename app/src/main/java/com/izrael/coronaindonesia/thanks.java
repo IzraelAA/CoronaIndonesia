@@ -17,7 +17,7 @@ public class thanks extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(thanks.this,MapsActivity.class));
+                startActivity(new Intent(thanks.this,MenuActivity.class));
             }
         },4000);
     }

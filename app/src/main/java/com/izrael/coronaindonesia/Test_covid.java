@@ -16,12 +16,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.HashMap;
 
 public class Test_covid extends AppCompatActivity {
-    String            userid,nohp;
-    ProgressBar progressBar;
+    String userid, nohp;
+    ProgressBar       progressBar;
     DatabaseReference reference;
-    RadioButton radioButton1,radioButton2,radioButton3,radioButton4,radioButton5,radioButton6,radioButton7,radioButton8;
-    String r1,r2,r3,r4,r5,r6,r7,r8;
-    RadioGroup radioGroup1,radioGroup2,radioGroup3,radioGroup4,radioGroup5,radioGroup6,radioGroup7,radioGroup8;
+    RadioButton       radioButton1, radioButton2, radioButton3, radioButton4, radioButton5, radioButton6, radioButton7, radioButton8;
+    String r1, r2, r3, r4, r5, r6, r7, r8;
+    RadioGroup radioGroup1, radioGroup2, radioGroup3, radioGroup4, radioGroup5, radioGroup6, radioGroup7, radioGroup8;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +37,7 @@ public class Test_covid extends AppCompatActivity {
         radioGroup7 = findViewById(R.id.radio7);
         radioGroup8 = findViewById(R.id.radio8);
         Button submit = findViewById(R.id.Register);
-        Bundle       bundle = getIntent().getExtras();
+        Bundle bundle = getIntent().getExtras();
         userid = bundle.getString("userid");
         nohp = bundle.getString("nohp");
         submit.setOnClickListener(new View.OnClickListener() {
@@ -60,14 +61,14 @@ public class Test_covid extends AppCompatActivity {
                 radioButton6 = findViewById(radioId6);
                 radioButton7 = findViewById(radioId7);
                 radioButton8 = findViewById(radioId8);
-                r1 = ""+radioButton1.getText();
-                r2 = ""+radioButton2.getText();
-                r3 = ""+radioButton3.getText();
-                r4 = ""+radioButton4.getText();
-                r5 = ""+radioButton5.getText();
-                r6 = ""+radioButton6.getText();
-                r7 = ""+radioButton7.getText();
-                r8 = ""+radioButton8.getText();
+                r1 = "" + radioButton1.getText();
+                r2 = "" + radioButton2.getText();
+                r3 = "" + radioButton3.getText();
+                r4 = "" + radioButton4.getText();
+                r5 = "" + radioButton5.getText();
+                r6 = "" + radioButton6.getText();
+                r7 = "" + radioButton7.getText();
+                r8 = "" + radioButton8.getText();
                 reference = FirebaseDatabase.getInstance().getReference("Test").child(userid);
                 HashMap<String, String> hashmap = new HashMap<>();
                 hashmap.put("userid", userid);
@@ -81,12 +82,15 @@ public class Test_covid extends AppCompatActivity {
                 hashmap.put("7", r7);
                 hashmap.put("8", r8);
                 hashmap.put("location", "");
+                hashmap.put("nama", "");
+                hashmap.put("latitude", "");
+                hashmap.put("longtitude", "");
                 reference.setValue(hashmap).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             progressBar.setVisibility(View.GONE);
-                            startActivity(new Intent(Test_covid.this,thanks.class));
+                            startActivity(new Intent(Test_covid.this, thanks.class));
                             finish();
                         }
                     }

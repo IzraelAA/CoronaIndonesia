@@ -30,18 +30,19 @@ import java.util.concurrent.TimeUnit;
 
 public class HomeActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
-    ProgressBar progressBar;
+    ProgressBar  progressBar;
     FirebaseUser user;
-    String nohp ;
-    private TextInputLayout layoutnama, layoutpassword, layoutnik , layoutnohp;
+    String       nohp;
+    private TextInputLayout layoutnama, layoutpassword, layoutnik, layoutnohp;
     PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
+
     @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.item_home);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.item_home);
         layoutnohp = findViewById(R.id.NoHp);
         progressBar = findViewById(R.id.progressbar);
-        Button login = findViewById(R.id.Login);
+        Button login    = findViewById(R.id.Login);
         Button register = findViewById(R.id.Register);
         mAuth = FirebaseAuth.getInstance();
 
@@ -49,17 +50,17 @@ public class HomeActivity extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(HomeActivity.this,Registrasi.class));
+                startActivity(new Intent(HomeActivity.this, Registrasi.class));
             }
         });
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 nohp = layoutnohp.getEditText().getText().toString();
-                if (nohp.isEmpty()){
+                if (nohp.isEmpty()) {
                     layoutnohp.setError("Phone number is required");
                     layoutnohp.requestFocus();
-                }else {
+                } else {
                     cekverif();
                 }
 
@@ -73,16 +74,18 @@ public class HomeActivity extends AppCompatActivity {
                 signInWithPhoneAuthCredential(phoneAuthCredential);
 
             }
+
             @Override
             public void onVerificationFailed(@NonNull FirebaseException e) {
                 progressBar.setVisibility(View.GONE);
                 Toast.makeText(HomeActivity.this, "Gagal", Toast.LENGTH_SHORT).show();
-                Log.d("aaa", "signInWithCredential:" +e);
+                Log.d("aaa", "signInWithCredential:" + e);
             }
+
             @Override
             public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
                 super.onCodeSent(s, forceResendingToken);
-                Log.d("haha", "onCodeSent: "+s);
+                Log.d("haha", "onCodeSent: " + s);
                 progressBar.setVisibility(View.GONE);
                 Toast.makeText(HomeActivity.this, "Nomer belum terdaftar", Toast.LENGTH_SHORT).show();
             }
@@ -108,7 +111,7 @@ public class HomeActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("aaa", "signInWithCredential:success");
-                            startActivity(new Intent(HomeActivity.this,MapsActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                            startActivity(new Intent(HomeActivity.this, MenuActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
                             progressBar.setVisibility(View.GONE);
                         } else {
                             // Sign in failed, display a message and update the UI

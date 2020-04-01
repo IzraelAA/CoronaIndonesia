@@ -29,24 +29,25 @@ import java.util.concurrent.TimeUnit;
 public class verifcation extends AppCompatActivity {
 
     private TextInputLayout code;
-    private FirebaseAuth mAuth;
-    ProgressBar progressBar;
+    private FirebaseAuth    mAuth;
+    ProgressBar       progressBar;
     DatabaseReference reference;
-    String            nama,password,nik,nohp,codesend;
+    String            nama, password, nik, nohp, codesend;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verifcation);
         code = findViewById(R.id.code);
         progressBar = findViewById(R.id.progressbar);
-        final Button verif  = findViewById(R.id.Register);
-        TextView nonya = findViewById(R.id.textnohp);
+        final Button verif = findViewById(R.id.Register);
+        TextView     nonya = findViewById(R.id.textnohp);
         progressBar.setVisibility(View.GONE);
-        Bundle       bundle = getIntent().getExtras();
+        Bundle bundle = getIntent().getExtras();
         nohp = bundle.getString("nohp");
         nonya.setText(nohp);
         mAuth = FirebaseAuth.getInstance();
-        Log.d("pp:","pp : "+nohp);
+        Log.d("pp:", "pp : " + nohp);
         verif.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,10 +68,11 @@ public class verifcation extends AppCompatActivity {
                 mCallbacks);
     }
 
-    public void verfiysigin(){
+    public void verfiysigin() {
         PhoneAuthCredential credential = PhoneAuthProvider.getCredential(codesend, code.getEditText().getText().toString());
         signInWithPhoneAuthCredential(credential);
     }
+
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -91,7 +93,7 @@ public class verifcation extends AppCompatActivity {
                                     if (task.isSuccessful()) {
 
                                         progressBar.setVisibility(View.GONE);
-                                        startActivity(new Intent(verifcation.this,Test_covid.class).putExtra("userid",userid).putExtra("nohp",nohp));
+                                        startActivity(new Intent(verifcation.this, Test_covid.class).putExtra("userid", userid).putExtra("nohp", nohp));
                                         finish();
                                     }
                                 }
@@ -111,21 +113,21 @@ public class verifcation extends AppCompatActivity {
         @Override
         public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
             signInWithPhoneAuthCredential(phoneAuthCredential);
-            Toast.makeText(verifcation.this,"Nomer udah terdaftar",Toast.LENGTH_LONG);
+            Toast.makeText(verifcation.this, "Nomer udah terdaftar", Toast.LENGTH_LONG);
         }
 
         @Override
         public void onVerificationFailed(@NonNull FirebaseException e) {
-            Toast.makeText(verifcation.this,"Gagal",Toast.LENGTH_LONG);
-            Log.d("aaa", "signInWithCredential:" +e);
+            Toast.makeText(verifcation.this, "Gagal", Toast.LENGTH_LONG);
+            Log.d("aaa", "signInWithCredential:" + e);
 
         }
 
         @Override
         public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
             super.onCodeSent(s, forceResendingToken);
-            String b =s;
-            Log.d("haha", "onCodeSent: "+b);
+            String b = s;
+            Log.d("haha", "onCodeSent: " + b);
             codesend = b;
         }
     };

@@ -1,4 +1,5 @@
 package com.izrael.coronaindonesia;
+
 import android.content.Context;
 import android.os.Bundle;
 import android.widget.FrameLayout;

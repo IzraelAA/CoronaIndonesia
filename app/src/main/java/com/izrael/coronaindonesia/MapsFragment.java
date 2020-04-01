@@ -1,40 +1,37 @@
 package com.izrael.coronaindonesia;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
+import android.location.Location;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Build;
-import android.os.Looper;
-import android.provider.Settings;
-import android.util.Log;
-import android.view.View;
-import android.widget.*;
+import android.os.Bundle;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.Fragment;
 
-import android.Manifest;
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.location.Location;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+import android.os.Looper;
+import android.provider.Settings;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,23 +59,17 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PatternItem;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
-
+public class MapsFragment extends Fragment implements OnMapReadyCallback {
     private GoogleMap mMap;
 
     private static final int         MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 5445;
@@ -123,32 +114,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private ArrayList<LatLng> latlngPositif = new ArrayList<>();
     private ArrayList<LatLng> latlngSembuh  = new ArrayList<>();
 
+    public MapsFragment() {
+
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps);
-        CardView btnxit = findViewById(R.id.btnexit);
-        btnxit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(MapsActivity.this, HomeActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
-            }
-        });
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        final View vi = inflater.inflate(R.layout.fragment_maps, container, false);
+
         user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            // Name, email address, and profile photo Url
-            String name = user.getDisplayName();
-            // Check if user's email is verified
-            String emailVerified = user.getPhoneNumber();
-            Toast.makeText(this, name, Toast.LENGTH_SHORT).show();
-            // The user's ID, unique to the Firebase project. Do NOT use this value to
-            // authenticate with your backend server, if you have one. Use
-            // FirebaseUser.getIdToken() instead.
-            String uid = user.getUid();
-        }
         if (mMap == null) {
-            SupportMapFragment mapFragment = (WorkaroundMapFragment) getSupportFragmentManager()
+            SupportMapFragment mapFragment = (WorkaroundMapFragment) getChildFragmentManager()
                     .findFragmentById(R.id.map);
             mapFragment.getMapAsync(new OnMapReadyCallback() {
                 @Override
@@ -162,7 +140,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         // in a raw resource file.
                         boolean success = googleMap.setMapStyle(
                                 MapStyleOptions.loadRawResourceStyle(
-                                        getApplicationContext(), R.raw.style_json));
+                                       getContext(), R.raw.style_json));
 
                         if (!success) {
                             Log.e("", "Style parsing failed.");
@@ -171,17 +149,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         Log.e("", "Can't find style. Error: ", e);
                     }
                     for (int i = 0; i < latlngs.size(); i++) {
-                        mMap.addMarker(new MarkerOptions().position(latlngs.get(i)).title("Terindekasi").icon(bitmapDescriptorFromVector1(getApplicationContext(), R.drawable.ic_place_blue_24dp)));
+                        mMap.addMarker(new MarkerOptions().position(latlngs.get(i)).title("Terindekasi").icon(bitmapDescriptorFromVector1(getActivity().getApplicationContext(), R.drawable.ic_place_blue_24dp)));
                         mMap.getUiSettings().setZoomControlsEnabled(true);
                         mMap.moveCamera(CameraUpdateFactory.newLatLng(latlngs.get(i)));
                     }
                     for (int i = 0; i < latlngPositif.size(); i++) {
-                        mMap.addMarker(new MarkerOptions().position(latlngPositif.get(i)).title("Terjangkit").icon(bitmapDescriptorFromVector(getApplicationContext(), R.drawable.ic_location_on_red_24dp)));
+                        mMap.addMarker(new MarkerOptions().position(latlngPositif.get(i)).title("Terjangkit").icon(bitmapDescriptorFromVector(getActivity().getApplicationContext(), R.drawable.ic_location_on_red_24dp)));
                         mMap.getUiSettings().setZoomControlsEnabled(true);
                         mMap.moveCamera(CameraUpdateFactory.newLatLng(latlngPositif.get(i)));
                     }
                     for (int i = 0; i < latlngSembuh.size(); i++) {
-                        mMap.addMarker(new MarkerOptions().position(latlngSembuh.get(i)).title("Sembuh").icon(bitmapDescriptorFromVector2(getApplicationContext(), R.drawable.ic_place_black_24dp)));
+                        mMap.addMarker(new MarkerOptions().position(latlngSembuh.get(i)).title("Sembuh").icon(bitmapDescriptorFromVector2(getActivity().getApplicationContext(), R.drawable.ic_place_black_24dp)));
                         mMap.getUiSettings().setZoomControlsEnabled(true);
                         mMap.moveCamera(CameraUpdateFactory.newLatLng(latlngSembuh.get(i)));
                     }
@@ -190,8 +168,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     // Zoom out to zoom level 10, animating with a duration of 2 seconds.
                     mMap.animateCamera(CameraUpdateFactory.zoomTo(8), 2000, null);
                     // Add a marker in Sydney and move the camera
-                    mScrollView = findViewById(R.id.scrollMap); //parent scrollview in xml, give your scrollview id value
-                    ((WorkaroundMapFragment) getSupportFragmentManager()
+                    mScrollView = vi.findViewById(R.id.scrollMap); //parent scrollview in xml, give your scrollview id value
+                    ((WorkaroundMapFragment) getChildFragmentManager()
                             .findFragmentById(R.id.map))
                             .setListener(new WorkaroundMapFragment.OnTouchListener() {
                                 @Override
@@ -215,9 +193,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         latlngPositif.add(latLng10);
         latlngPositif.add(latLng11);
         latlngPositif.add(latLng12);
-        final LocationManager locationM = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        final LocationManager locationM = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         if (!locationM.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setMessage("Harap Nyalakan GPS Terlebih Dahulu")
                     .setTitle("Tidak Dapat Menemukan Lokasi")
                     .setCancelable(false)
@@ -225,7 +203,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     Intent openLocationSettings = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                                    MapsActivity.this.startActivity(openLocationSettings);
+                                    getActivity().startActivity(openLocationSettings);
                                 }
                             }
                     )
@@ -239,7 +217,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             AlertDialog alert = builder.create();
             alert.show();
         }
-
+        return vi;
     }
 
     @Override
@@ -317,21 +295,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(getCameraPositionWithBearing(latLng)));
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (fusedLocationProviderClient != null)
-            fusedLocationProviderClient.removeLocationUpdates(mLocationCallback);
-    }
 
     private boolean isGooglePlayServicesAvailable() {
         GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
-        int                   status                = googleApiAvailability.isGooglePlayServicesAvailable(this);
+        int                   status                = googleApiAvailability.isGooglePlayServicesAvailable(getActivity());
         if (ConnectionResult.SUCCESS == status)
             return true;
         else {
             if (googleApiAvailability.isUserResolvableError(status))
-                Toast.makeText(this, "Please Install google play services to use this application", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Please Install google play services to use this application", Toast.LENGTH_LONG).show();
         }
         return false;
     }
@@ -342,8 +314,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         locationRequest.setInterval(3000);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(MapsActivity.this,
+            if (ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(getActivity(),
                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                         MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
                 return;
@@ -351,11 +323,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         //Untuk data internet
         String              status        = null;
-        ConnectivityManager cm            = (ConnectivityManager) MapsActivity.this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager cm            = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo         activeNetwork = cm.getActiveNetworkInfo();
 
         if (activeNetwork == null) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setMessage("Kamu Tidak Memiliki Koneksi Internet, Harap Nyalakan Data Seluler atau Wi-Fi")
                     .setTitle("Tidak Ada Koneksi")
                     .setCancelable(false)
@@ -378,9 +350,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
         //untuk cek apakah gps on/off
-        final LocationManager locationM = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        final LocationManager locationM = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         if (!locationM.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setMessage("Harap Nyalakan GPS Terlebih Dahulu")
                     .setTitle("Tidak Dapat Menemukan Lokasi")
                     .setCancelable(false)
@@ -388,7 +360,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     Intent openLocationSettings = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                                    MapsActivity.this.startActivity(openLocationSettings);
+                                    getActivity().startActivity(openLocationSettings);
                                 }
                             }
                     )
@@ -405,6 +377,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         fusedLocationProviderClient.requestLocationUpdates(locationRequest, mLocationCallback, Looper.myLooper());
     }
 
+
     public void upload(@NonNull Location currentLocation) {
         LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
         String userid = user.getUid();
@@ -412,23 +385,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         HashMap<String, Object> hashmap = new HashMap<>();
 
         hashmap.put("location", latLng.toString());
+        hashmap.put("latitude", currentLocation.getLatitude());
+        hashmap.put("longtitude", currentLocation.getLongitude());
         reference.updateChildren(hashmap);
     }
 
     @Override
-    protected void onResume() {
+    public void onStop() {
+        super.onStop();
+        if (fusedLocationProviderClient != null)
+            fusedLocationProviderClient.removeLocationUpdates(mLocationCallback);
+    }
+    @Override
+    public void onResume() {
         super.onResume();
         if (isGooglePlayServicesAvailable()) {
-            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
             startCurrentLocationUpdates();
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        fusedLocationProviderClient = null;
-        mMap = null;
     }
 
     @NonNull
@@ -441,11 +415,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION) {
             if (grantResults[0] == PackageManager.PERMISSION_DENIED)
-                Toast.makeText(this, "Permission denied by uses", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Permission denied by uses", Toast.LENGTH_SHORT).show();
             else if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
                 startCurrentLocationUpdates();
         }
     }
 
 }
-

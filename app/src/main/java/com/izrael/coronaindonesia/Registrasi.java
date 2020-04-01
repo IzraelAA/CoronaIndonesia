@@ -29,9 +29,10 @@ import java.util.concurrent.TimeUnit;
 
 public class Registrasi extends AppCompatActivity {
 
-    private TextInputLayout layoutnama, layoutpassword, layoutnik , layoutnohp;
-    String nama,password,nik,nohp,codesend;
+    private TextInputLayout layoutnama, layoutpassword, layoutnik, layoutnohp;
+    String nama, password, nik, nohp, codesend;
     ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,23 +45,22 @@ public class Registrasi extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 nohp = layoutnohp.getEditText().getText().toString();
-                if (nohp.isEmpty()){
+                if (nohp.isEmpty()) {
                     layoutnohp.setError("Phone number is required");
                     layoutnohp.requestFocus();
-                }else {
+                } else {
                     confrimInput(nohp);
                 }
             }
         });
-
-
     }
-    public void confrimInput(String nohp) {
-           // OnVerificationStateChangedCallbacks
 
-                    Intent intent = new Intent(Registrasi.this,verifcation.class);
-                    intent.putExtra("nohp",nohp);
-                    startActivity(intent);
+    public void confrimInput(String nohp) {
+        // OnVerificationStateChangedCallbacks
+
+        Intent intent = new Intent(Registrasi.this, verifcation.class);
+        intent.putExtra("nohp", nohp);
+        startActivity(intent);
 
 
     }

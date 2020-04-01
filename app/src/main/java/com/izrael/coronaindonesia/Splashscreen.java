@@ -13,6 +13,7 @@ public class Splashscreen extends AppCompatActivity {
 
     FirebaseUser user;
     private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,18 +23,14 @@ public class Splashscreen extends AppCompatActivity {
         user = mAuth.getCurrentUser();
         new Handler().postDelayed(new Runnable() {
             @Override
-            public void run() {  if (user != null) {
-                startActivity(new Intent(Splashscreen.this,MapsActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
-            }else{
-                startActivity(new Intent(Splashscreen.this,HomeActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
+            public void run() {
+                if (user != null) {
+                    startActivity(new Intent(Splashscreen.this, MenuActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                } else {
+                    startActivity(new Intent(Splashscreen.this, HomeActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                }
             }
-            }
-        },4000);
+        }, 2000);
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-    }
 }
