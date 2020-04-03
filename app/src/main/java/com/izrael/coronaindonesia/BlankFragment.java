@@ -1,6 +1,7 @@
 package com.izrael.coronaindonesia;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -23,53 +24,79 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
+
 import android.widget.*;
+
 public class BlankFragment extends Fragment {
 
     DatabaseReference reference;
     FirebaseUser      user;
-    EditText nama,nik;
-    TextView nomer,warning;
-    Button btnsbmt;
+    TextView          nomer, warning, nama, nik, alamat;
+    Button btnedit, logout;
     ProgressBar pg;
-    String namateks;
+    String      namateks, nikteks, alamatteks,nomerteks;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View           v      = inflater.inflate(R.layout.fragment_blank, container, false);
-        nama   = v.findViewById(R.id.etname);
+        View v = inflater.inflate(R.layout.fragment_blank, container, false);
+        nama = v.findViewById(R.id.etname);
+        nik = v.findViewById(R.id.nik);
+        alamat = v.findViewById(R.id.alamat);
         user = FirebaseAuth.getInstance().getCurrentUser();
         warning = v.findViewById(R.id.warning);
         nomer = v.findViewById(R.id.nomer);
-        btnsbmt = v.findViewById(R.id.change);
+        btnedit = v.findViewById(R.id.edit);
         pg = v.findViewById(R.id.loading);
         pg.setVisibility(View.GONE);
-        btnsbmt.setOnClickListener(new View.OnClickListener() {
+        btnedit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                upload();
+                Intent intent = new Intent(getActivity(), EditActivty.class);
+                intent.putExtra("nama", namateks);
+                intent.putExtra("alamat", alamatteks);
+                intent.putExtra("nik", nikteks);
+                intent.putExtra("nomer", nomerteks);
+                startActivity(intent);
             }
         });
-        String         userid = user.getUid();
-        nama.setText(namateks);
+        String userid = user.getUid();
         reference = FirebaseDatabase.getInstance().getReference("Test").child(userid);
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-               profil p = dataSnapshot.getValue(profil.class);
-               nomer.setText("Nomer :"+p.getNohp());
-                Log.d("panca",""+p.getNama());
-                Log.d("panca",""+p.getNohp());
-               if (p.getNama().equals("")){
-                   warning.setVisibility(View.VISIBLE);
-               }else {
-                   namateks = p.getNama();
-                   warning.setVisibility(View.GONE);
-               }
-            }
+                profil p = dataSnapshot.getValue(profil.class);
+                nomerteks = p.getNohp();
+                nomer.setText("Nomer : " + nomerteks);
+                Log.d("panca", "" + p.getNama());
+                Log.d("panca", "" + p.getNohp());
+                if (p.getNama() == null) {
+                    warning.setText("Silakan Isi Nama");
+                    warning.setVisibility(View.VISIBLE);
+                } else {
 
+                    namateks =  p.getNama();
+                    nama.setText("Nama : " +namateks);
+                    warning.setVisibility(View.GONE);
+                }
+                if (p.getAlamat() == null) {
+                    warning.setText("Silakan Isi Alamat");
+                    warning.setVisibility(View.VISIBLE);
+                } else {
+                    alamatteks =  p.getAlamat();
+                    alamat.setText("Alamat : " +alamatteks);
+                    warning.setVisibility(View.GONE);
+                }
+                if (p.getNik() == null) {
+                    warning.setText("Silakan isi nik");
+                    warning.setVisibility(View.VISIBLE);
+                } else {
+                    nikteks =  p.getNik();
+                    nik.setText("Nik      : " +nikteks);
+                    warning.setVisibility(View.GONE);
+                }
+            }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
@@ -93,6 +120,5 @@ public class BlankFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        nama.setText(namateks);
     }
 }

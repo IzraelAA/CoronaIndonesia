@@ -8,9 +8,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
 
 import androidx.fragment.app.Fragment;
+
+import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
 
 import java.util.Map;
 
@@ -34,70 +35,46 @@ public class MenuActivity extends AppCompatActivity {
         bottomNavigation.add(new MeowBottomNavigation.Model(ID_HOME, R.drawable.ic_home_black_24dp));
         bottomNavigation.add(new MeowBottomNavigation.Model(ID_EXPLORE, R.drawable.ic_report_black_24dp));
         bottomNavigation.add(new MeowBottomNavigation.Model(ID_MESSAGE, R.drawable.ic_account_circle_black_24dp));
-        bottomNavigation.show(ID_HOME, true);
-        bottomNavigation.setOnClickMenuListener(new Function1<MeowBottomNavigation.Model, Unit>() {
+        getSupportFragmentManager().beginTransaction().replace(R.id.framelayout,new MapsFragment()).commit();
+        bottomNavigation.setOnClickMenuListener(new MeowBottomNavigation.ClickListener(){
 
-            String name;
+                                                @Override
+                                                public void onClickItem(MeowBottomNavigation.Model item) {
+                                                    Toast.makeText(MenuActivity.this, "", Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+
+        bottomNavigation.setOnShowListener(new MeowBottomNavigation.ShowListener() {
             @Override
-            public Unit invoke(MeowBottomNavigation.Model p1) {
-                int           i    = p1.getId();
-                BlankFragment akun = new BlankFragment();
-                MapsFragment  home = new MapsFragment();
-                switch (i) {
+            public void onShowItem(MeowBottomNavigation.Model item) {
+                String name;
+                BlankFragment akun  = new BlankFragment();
+                MapsFragment  home  = new MapsFragment();
+                Laporan       lapor = new Laporan();
+                switch (item.getId()) {
                     case ID_HOME:
                         name = "HOME";
-                        loadFragment(home,name);
+                        loadFragment(home, name);
                         break;
                     case ID_EXPLORE:
                         name = "EXPLORE";
-                        loadFragment(akun,name);
+                        loadFragment(lapor, name);
                         break;
                     case ID_MESSAGE:
                         name = "MESSAGE";
-                        loadFragment(akun,name);
+                        loadFragment(akun, name);
                         break;
-                    default:
-                        name = "HOME";
-                        loadFragment(home,name);
                 }
-                return Unit.INSTANCE;
-            }
-        });
-        bottomNavigation.setOnShowListener(new Function1<MeowBottomNavigation.Model, Unit>() {
 
-            String name;
-            @Override
-            public Unit invoke(MeowBottomNavigation.Model p1) {
-                int           i    = p1.getId();
-                BlankFragment akun = new BlankFragment();
-                MapsFragment  home = new MapsFragment();
-                switch (i) {
-                    case ID_HOME:
-                        name = "HOME";
-                        loadFragment(home,name);
-                        break;
-                    case ID_EXPLORE:
-                        name = "EXPLORE";
-                        loadFragment(akun,name);
-                        break;
-                    case ID_MESSAGE:
-                        name = "MESSAGE";
-                        loadFragment(akun,name);
-                        break;
-                    default:
-                        name = "HOME";
-                        loadFragment(home,name);
-                }
-                return Unit.INSTANCE;
             }
         });
 
     }
-    public void loadFragment(Fragment fragment,String tag) {
+
+    public void loadFragment(Fragment fragment, String tag) {
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.framelayout, fragment, tag)
-                .addToBackStack(null)
                 .commit();
     }
 }
