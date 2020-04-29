@@ -4,15 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bgcoronapolos"
     android:orientation="vertical"
     tools:context=".EditAkun">
 
-    <androidx.appcompat.widget.Toolbar
+    <Toolbar
+        android:background="#10253a"
+        android:elevation="5dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:layout_width="match_parent"
+        android:titleTextColor="#fff"
         android:layout_height="wrap_content"
-        app:title="Edit Akun" />
+        android:title="Edit Akun" />
 
     <EditText
+        android:textColorHint="#FFF"
+        android:textColor="#FFF"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
@@ -20,6 +27,8 @@
         android:hint="Name" />
 
     <EditText
+        android:textColorHint="#FFF"
+        android:textColor="#FFF"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
@@ -28,8 +37,9 @@
 
     <Button
         android:id="@+id/save"
+        android:background="@drawable/bglogin"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="36dp"
         android:layout_gravity="center"
         android:layout_marginTop="100dp"
         android:text="Save" />

@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.View;
+import android.widget.*;
 
 public class thanks extends AppCompatActivity {
 
@@ -14,11 +16,23 @@ public class thanks extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thanks);
-        new Handler().postDelayed(new Runnable() {
+
+        Bundle bundle = getIntent().getExtras();
+        String hh = bundle.getString("inn");
+        TextView text11 = findViewById(R.id.text123);
+        text11.setText(hh);
+        Button b = findViewById(R.id.buttonlanjutkan);
+        b.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void run() {
+            public void onClick(View v) {
                 startActivity(new Intent(thanks.this,MenuActivity.class));
             }
-        },4000);
+        });
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                startActivity(new Intent(thanks.this,MenuActivity.class));
+//            }
+//        },2000);
     }
 }

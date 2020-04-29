@@ -1,46 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bgcoronapolos"
     android:orientation="vertical"
     tools:context=".Laporan">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <androidx.appcompat.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:title="Laporan"/>
-        <TextView
-            android:layout_margin="20dp"
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Jika Anda memiliki keluhan Kilik tombol Di bawah ini"/>
-        <Button
-            android:layout_gravity="center"
-            android:layout_marginHorizontal="20dp"
-            android:text="Konsulatsi Diri"
-            android:id="@+id/halodoc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:layout_margin="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Jika anda meliahat orang yang mudik atau terjangkit klik tombol di bawah ini"/>
-        <Button
-            android:layout_gravity="center"
-            android:layout_marginHorizontal="20dp"
-            android:text="laporan warga"
-            android:id="@+id/laporan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
 
+        <Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#10253a"
+            android:elevation="5dp"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:title="Menu Bantuan"
+            android:titleTextColor="#fff" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp"
+            android:background="@drawable/bgtestcovid"
+            android:elevation="5dp"
+            app:cardBackgroundColor="#10253a"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="5dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+
+                android:layout_height="70dp"
+                android:layout_margin="5dp"
+                android:background="#00FFFFFF"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/covid"
+                    android:layout_width="320dp"
+                    android:layout_height="60dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="9dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@null"
+                    android:paddingHorizontal="10dp"
+                    android:text="Test Covid-19"
+                    android:textColor="#FFF" />
+
+                <ImageView
+                    android:layout_width="49dp"
+                    android:layout_height="56dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginBottom="8dp"
+                    android:src="@drawable/testcovid" />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp"
+            android:background="@drawable/bgtestcovid"
+            android:elevation="5dp"
+            app:cardBackgroundColor="#10253a"
+            app:cardCornerRadius="5dp"
+
+            app:cardElevation="5dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+
+                android:layout_height="70dp"
+                android:layout_margin="5dp"
+                android:background="#00FFFFFF"
+                android:orientation="vertical">
+
+                <Button
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/laporan"
+                    android:layout_width="320dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="10dp"
+                    android:background="@null"
+                    android:textColor="#FFF"
+                    android:paddingHorizontal="10dp"
+                    android:text="laporan covid-19" />
+
+                <ImageView
+                    android:layout_width="49dp"
+                    android:layout_height="56dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginBottom="8dp"
+                    android:src="@drawable/laporancovid" />
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
     </LinearLayout>
 
 </ScrollView>

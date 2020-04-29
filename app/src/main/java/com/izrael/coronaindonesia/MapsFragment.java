@@ -8,6 +8,8 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationManager;
@@ -27,10 +29,12 @@ import androidx.fragment.app.Fragment;
 import android.os.Looper;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,10 +63,14 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PatternItem;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -93,7 +101,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     List<LatLng>    latLngList = new ArrayList<>();
     LatLng          setsatu    = null;
     List<Marker>    markerList = new ArrayList<>();
-    Button          finishset;
+    Button          btnodp, pdp, positive;
+    TextView sembuh, meninggal;
     private FusedLocationProviderClient fusedLocationProviderClient;
     LatLng       latLng   = new LatLng(-6.2758471, 107.2544972);
     LatLng       latLng1  = new LatLng(-6.3053208, 106.8996445);
@@ -109,10 +118,13 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     LatLng       latLng11 = new LatLng(-6.381226, 106.760376);
     LatLng       latLng12 = new LatLng(-6.404720, 106.796021);
     FirebaseUser user;
-    private MarkerOptions     options       = new MarkerOptions();
-    private ArrayList<LatLng> latlngs       = new ArrayList<>();
-    private ArrayList<LatLng> latlngPositif = new ArrayList<>();
-    private ArrayList<LatLng> latlngSembuh  = new ArrayList<>();
+    private Context           mContext;
+    private MarkerOptions     options        = new MarkerOptions();
+    private ArrayList<String> latlngs        = new ArrayList<>();
+    private ArrayList<LatLng> latlngPositif  = new ArrayList<>();
+    private ArrayList<String> latlngprofensi = new ArrayList<>();
+    private ArrayList<String> latlngjumlah   = new ArrayList<>();
+    FloatingActionButton halodoc;
 
     public MapsFragment() {
 
@@ -124,7 +136,63 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         // Inflate the layout for this fragment
         final View vi = inflater.inflate(R.layout.fragment_maps, container, false);
 
+        halodoc = vi.findViewById(R.id.halo);
+        final TextView textpdp = vi.findViewById(R.id.pdptext);
+        final TextView textodp = vi.findViewById(R.id.odptext);
+        textodp.setVisibility(View.GONE);
+        textpdp.setVisibility(View.GONE);
+        mContext = getActivity().getApplicationContext();
+        halodoc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "maintance halo doc  ", Toast.LENGTH_SHORT).show();
+            }
+        });
+        btnodp = vi.findViewById(R.id.btnOdp);
+        pdp = vi.findViewById(R.id.btnPdp);
+        positive = vi.findViewById(R.id.btnPositive);
+        meninggal = vi.findViewById(R.id.meninggal);
+        sembuh = vi.findViewById(R.id.sembuh1);
+
         user = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference reference22 = FirebaseDatabase.getInstance().getReference("Jumlah");
+        reference22.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                Log.d("", "onDataChange: " + dataSnapshot.child("Sembuh").getValue());
+//                Log.d("", "onDataChange:datasnap "+dataSnapshot);
+                Jumlah jumlah = dataSnapshot.getValue(Jumlah.class);
+//                assert jumlah != null;
+                String o = jumlah.getOdp();
+                String p = jumlah.getPdp();
+                Log.d("", "onDataChange11: " + o + " " + p);
+                if (o.equals("maintance")) {
+                    btnodp.setVisibility(View.GONE);
+                } else {
+                    btnodp.setVisibility(View.VISIBLE);
+                    textodp.setVisibility(View.VISIBLE);
+                    btnodp.setText(o + "\n" + "ODP");
+                }
+                if (p.equals("maintance")) {
+                    pdp.setVisibility(View.GONE);
+                } else {
+                    pdp.setVisibility(View.VISIBLE);
+                    textpdp.setVisibility(View.VISIBLE);
+                    pdp.setText(jumlah.getPdp() + "\n" + "PDP");
+                }
+                meninggal.setText(jumlah.getMeninggal() + "\n" + "Meninggal");
+                positive.setText(jumlah.getPositif() + "\n" + "Positif");
+                sembuh.setText(jumlah.getSembuh() + "\n" + "Sembuh");
+//                Toast.makeText(getActivity().getApplicationContext(), jumlah.getMeninggal().toString(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                Log.d("", "onDataChange:datasnap " + databaseError);
+            }
+        });
         if (mMap == null) {
             SupportMapFragment mapFragment = (WorkaroundMapFragment) getChildFragmentManager()
                     .findFragmentById(R.id.map);
@@ -140,7 +208,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                         // in a raw resource file.
                         boolean success = googleMap.setMapStyle(
                                 MapStyleOptions.loadRawResourceStyle(
-                                       getContext(), R.raw.style_json));
+                                        getContext(), R.raw.style_json));
 
                         if (!success) {
                             Log.e("", "Style parsing failed.");
@@ -148,25 +216,96 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                     } catch (Resources.NotFoundException e) {
                         Log.e("", "Can't find style. Error: ", e);
                     }
-                    for (int i = 0; i < latlngs.size(); i++) {
-                        mMap.addMarker(new MarkerOptions().position(latlngs.get(i)).title("Terindekasi").icon(bitmapDescriptorFromVector1(getActivity().getApplicationContext(), R.drawable.ic_place_blue_24dp)));
-                        mMap.getUiSettings().setZoomControlsEnabled(true);
-                        mMap.moveCamera(CameraUpdateFactory.newLatLng(latlngs.get(i)));
-                    }
-                    for (int i = 0; i < latlngPositif.size(); i++) {
-                        mMap.addMarker(new MarkerOptions().position(latlngPositif.get(i)).title("Terjangkit").icon(bitmapDescriptorFromVector(getActivity().getApplicationContext(), R.drawable.ic_location_on_red_24dp)));
-                        mMap.getUiSettings().setZoomControlsEnabled(true);
-                        mMap.moveCamera(CameraUpdateFactory.newLatLng(latlngPositif.get(i)));
-                    }
-                    for (int i = 0; i < latlngSembuh.size(); i++) {
-                        mMap.addMarker(new MarkerOptions().position(latlngSembuh.get(i)).title("Sembuh").icon(bitmapDescriptorFromVector2(getActivity().getApplicationContext(), R.drawable.ic_place_black_24dp)));
-                        mMap.getUiSettings().setZoomControlsEnabled(true);
-                        mMap.moveCamera(CameraUpdateFactory.newLatLng(latlngSembuh.get(i)));
-                    }
+                    DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("Maps");
 
+                    reference1.addValueEventListener(new ValueEventListener() {
+
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                                Log.d("hh", "onDataChange:22 " + snapshot.child("Latitude").getValue(Double.class));
+                                Maps map = snapshot.getValue(Maps.class);
+                                Log.d("data snapshot", "onDataChange: " + snapshot);
+                                Log.d("hh", "onDataChange: " + dataSnapshot);
+                                Log.d("testlat", "onDataChange lat: " + map.getLatitude());
+                                Log.d("testlat", "onDataChange lat: " + map.getLongtitude());
+                                Log.d("testlat", "onDataChange lat: " + map.getProvensi());
+                                Log.d("testlat", "onDataChange lat: " + map.getStatus());
+                                latlngs.add(map.getStatus());
+                                latlngprofensi.add(map.getProvensi());
+                                latlngjumlah.add(map.getJumlahorang());
+                                latlngPositif.add(new LatLng(map.getLongtitude(), map.getLatitude()));
+
+                                mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+                                    @Override
+                                    public View getInfoWindow(Marker marker) {
+                                        return null;
+                                    }
+
+                                    @Override
+                                    public View getInfoContents(Marker marker) {
+                                        LinearLayout info = new LinearLayout(getActivity().getApplicationContext());
+                                        info.setOrientation(LinearLayout.VERTICAL);
+                                        TextView title = new TextView(getActivity().getApplicationContext());
+                                        title.setTextColor(Color.BLACK);
+                                        title.setGravity(Gravity.CENTER);
+                                        title.setTypeface(null, Typeface.BOLD);
+                                        title.setText(marker.getTitle());
+                                        TextView snippet = new TextView(getActivity().getApplicationContext());
+                                        snippet.setTextColor(Color.GRAY);
+                                        snippet.setText(marker.getSnippet());
+                                        info.addView(title);
+                                        info.addView(snippet);
+                                        return info;
+                                    }
+                                });
+                                Log.d("", "onDataChange:fen " + latlngprofensi.size());
+                                Log.d("", "onDataChange:tiv " + latlngPositif.size());
+                                for (int i = 0; i < latlngPositif.size(); i++) {
+                                    @DrawableRes int vectorDrawableResourceId = R.drawable.ic_location_on_red_24dp;
+                                    if (latlngs.get(i).equals("Positif")) {
+                                        vectorDrawableResourceId = R.drawable.ic_location_on_red_24dp;
+                                        mMap.addMarker(new MarkerOptions().position(latlngPositif.get(i)).title(latlngprofensi.get(i)).snippet(latlngs.get(i) + "" + "\n" + latlngjumlah.get(i) + " Orang").icon(bitmapDescriptorFromVector(mContext,R.drawable.ic_positiveicon)));
+                                        mMap.getUiSettings().setZoomControlsEnabled(true);
+                                    }
+                                    if (latlngs.get(i).equals("PDP")) {
+                                        vectorDrawableResourceId = R.drawable.ic_place_black_24dp;
+
+                                        mMap.addMarker(new MarkerOptions().position(latlngPositif.get(i)).title(latlngprofensi.get(i)).snippet(latlngs.get(i) + "" + "\n" + latlngjumlah.get(i) + " Orang").icon(bitmapDescriptorFromVector1(mContext, R.drawable.ic_pdpicon)));
+                                        mMap.getUiSettings().setZoomControlsEnabled(true);
+                                    }
+                                    if (latlngs.get(i).equals("ODP")) {
+                                        vectorDrawableResourceId = R.drawable.ic_place_blue_24dp;
+                                        mMap.addMarker(new MarkerOptions().position(latlngPositif.get(i)).title(latlngprofensi.get(i)).snippet(latlngs.get(i) + "" + "\n" + latlngjumlah.get(i) + " Orang").icon(bitmapDescriptorFromVector2(mContext, R.drawable.ic_odpicon)));
+                                        mMap.getUiSettings().setZoomControlsEnabled(true);
+                                    }
+
+                                    Log.d("", "onDataChange: maps 1" + latlngPositif.toString());
+                                    Log.d("", "onDataChange: maps 1" + latlngPositif.get(0).latitude);
+
+                                    Log.d("2", "onMapReady: " + latlngPositif);
+                                }
+
+////                                for (int i = 0; i < latlngs.size(); i++) {
+////                                    mMap.addMarker(new MarkerOptions().position(latlngs.get(i)).title("Terindekasi"));
+////                                    mMap.getUiSettings().setZoomControlsEnabled(true);
+////                                    mMap.moveCamera(CameraUpdateFactory.newLatLng(latlngs.get(i)));
+//                                }
+
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng2));
                     mMap.animateCamera(CameraUpdateFactory.zoomIn());
                     // Zoom out to zoom level 10, animating with a duration of 2 seconds.
-                    mMap.animateCamera(CameraUpdateFactory.zoomTo(8), 2000, null);
+                    mMap.animateCamera(CameraUpdateFactory.zoomTo(12), 2000, null);
                     // Add a marker in Sydney and move the camera
                     mScrollView = vi.findViewById(R.id.scrollMap); //parent scrollview in xml, give your scrollview id value
                     ((WorkaroundMapFragment) getChildFragmentManager()
@@ -180,19 +319,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                 }
             });
         }
-        latlngs.add(latLng);
-        latlngs.add(latLng1);
-        latlngs.add(latLng2);
-        latlngs.add(latLng3);
-        latlngSembuh.add(latLng4);
-        latlngSembuh.add(latLng5);
-        latlngSembuh.add(latLng6);
-        latlngSembuh.add(latLng7);
-        latlngPositif.add(latLng8);
-        latlngPositif.add(latLng9);
-        latlngPositif.add(latLng10);
-        latlngPositif.add(latLng11);
-        latlngPositif.add(latLng12);
         final LocationManager locationM = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         if (!locationM.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -225,40 +351,36 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         mMap = googleMap;
 
     }
-
     private BitmapDescriptor bitmapDescriptorFromVector(Context context, @DrawableRes int vectorDrawableResourceId) {
-        Drawable background = ContextCompat.getDrawable(context, R.drawable.ic_location_on_red_24dp);
+        Drawable background = ContextCompat.getDrawable(context, R.drawable.ic_positiveicon);
         background.setBounds(0, 0, background.getIntrinsicWidth(), background.getIntrinsicHeight());
         Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorDrawableResourceId);
         vectorDrawable.setBounds(40, 20, vectorDrawable.getIntrinsicWidth() + 40, vectorDrawable.getIntrinsicHeight() + 20);
         Bitmap bitmap = Bitmap.createBitmap(background.getIntrinsicWidth(), background.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
         background.draw(canvas);
-        vectorDrawable.draw(canvas);
         return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
 
     private BitmapDescriptor bitmapDescriptorFromVector1(Context context, @DrawableRes int vectorDrawableResourceId) {
-        Drawable background = ContextCompat.getDrawable(context, R.drawable.ic_place_blue_24dp);
+        Drawable background = ContextCompat.getDrawable(context, R.drawable.ic_pdpicon);
         background.setBounds(0, 0, background.getIntrinsicWidth(), background.getIntrinsicHeight());
         Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorDrawableResourceId);
         vectorDrawable.setBounds(40, 20, vectorDrawable.getIntrinsicWidth() + 40, vectorDrawable.getIntrinsicHeight() + 20);
         Bitmap bitmap = Bitmap.createBitmap(background.getIntrinsicWidth(), background.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
         background.draw(canvas);
-        vectorDrawable.draw(canvas);
         return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
 
     private BitmapDescriptor bitmapDescriptorFromVector2(Context context, @DrawableRes int vectorDrawableResourceId) {
-        Drawable background = ContextCompat.getDrawable(context, R.drawable.ic_place_black_24dp);
+        Drawable background = ContextCompat.getDrawable(context, R.drawable.ic_odpicon);
         background.setBounds(0, 0, background.getIntrinsicWidth(), background.getIntrinsicHeight());
         Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorDrawableResourceId);
         vectorDrawable.setBounds(40, 20, vectorDrawable.getIntrinsicWidth() + 40, vectorDrawable.getIntrinsicHeight() + 20);
         Bitmap bitmap = Bitmap.createBitmap(background.getIntrinsicWidth(), background.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
         background.draw(canvas);
-        vectorDrawable.draw(canvas);
         return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
 
@@ -282,11 +404,11 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     private void showMarker(@NonNull Location currentLocation) {
         LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
         Log.d("ceklogtitude", "showMarker: " + currentLocation.getLatitude() + "&" + currentLocation.getLongitude());
-        if (currentLocationMarker == null)
+        if (currentLocationMarker == null) {
             Log.d("", "showMarker: " + currentLocationMarker);
 //            currentLocationMarker = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_my_location)).position(latLng));
 //            currentLocationMarker = googleMap.addMarker(new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_pin_location)).anchor(0.5f, 0.5f));
-        else
+        } else
             MarkerAnimation.animateMarkerToGB(currentLocationMarker, latLng, new LatLngInterpolator.Spherical());
     }
 
@@ -396,6 +518,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         if (fusedLocationProviderClient != null)
             fusedLocationProviderClient.removeLocationUpdates(mLocationCallback);
     }
+
     @Override
     public void onResume() {
         super.onResume();

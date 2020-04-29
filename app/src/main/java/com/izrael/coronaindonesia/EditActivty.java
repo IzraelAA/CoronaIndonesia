@@ -1,16 +1,17 @@
 package com.izrael.coronaindonesia;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.util.Log;
 import android.view.View;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.content.Intent;
 import android.os.Bundle;
-
+import android.widget.*;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,14 +24,13 @@ import java.util.HashMap;
 public class EditActivty extends AppCompatActivity {
     EditText nama, alamat, nik;
     ProgressBar pg;
-
-    String s   ;
-    String a  ;
-    String z;
+    String            s   ;
+    String            a  ;
+    String            z;
     FirebaseUser      user;
     DatabaseReference reference;
     Button            save;
-    Toolbar toolbar;
+    Toolbar           toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +78,7 @@ public class EditActivty extends AppCompatActivity {
                         nama.setText(s);
                         alamat.setText(a);
                         nik.setText(z);
+                        startActivity(new Intent(EditActivty.this,MenuActivity.class));
                         pg.setVisibility(View.GONE);
                     }
                 });

@@ -39,7 +39,7 @@ public class Registrasi extends AppCompatActivity {
         setContentView(R.layout.activity_registrasi);
         Button Registrasi = findViewById(R.id.Register);
         layoutnohp = findViewById(R.id.NoHp);
-        progressBar = findViewById(R.id.progressbar);
+        progressBar = findViewById(R.id.pgregis);
 
         Registrasi.setOnClickListener(new View.OnClickListener() {
             @Override

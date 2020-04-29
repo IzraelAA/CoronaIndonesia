@@ -35,19 +35,10 @@ public class MenuActivity extends AppCompatActivity {
         bottomNavigation.add(new MeowBottomNavigation.Model(ID_HOME, R.drawable.ic_home_black_24dp));
         bottomNavigation.add(new MeowBottomNavigation.Model(ID_EXPLORE, R.drawable.ic_report_black_24dp));
         bottomNavigation.add(new MeowBottomNavigation.Model(ID_MESSAGE, R.drawable.ic_account_circle_black_24dp));
-        getSupportFragmentManager().beginTransaction().replace(R.id.framelayout,new MapsFragment()).commit();
-        bottomNavigation.setOnClickMenuListener(new MeowBottomNavigation.ClickListener(){
-
-                                                @Override
-                                                public void onClickItem(MeowBottomNavigation.Model item) {
-                                                    Toast.makeText(MenuActivity.this, "", Toast.LENGTH_SHORT).show();
-                                                }
-                                            });
-
         bottomNavigation.setOnShowListener(new MeowBottomNavigation.ShowListener() {
             @Override
             public void onShowItem(MeowBottomNavigation.Model item) {
-                String name;
+                String        name;
                 BlankFragment akun  = new BlankFragment();
                 MapsFragment  home  = new MapsFragment();
                 Laporan       lapor = new Laporan();
@@ -68,7 +59,53 @@ public class MenuActivity extends AppCompatActivity {
 
             }
         });
-
+        bottomNavigation.setOnClickMenuListener(new MeowBottomNavigation.ClickListener() {
+            @Override
+            public void onClickItem(MeowBottomNavigation.Model item) {
+                String        name;
+                BlankFragment akun  = new BlankFragment();
+                MapsFragment  home  = new MapsFragment();
+                Laporan       lapor = new Laporan();
+                switch (item.getId()) {
+                    case ID_HOME:
+                        name = "HOME";
+                        loadFragment(home, name);
+                        break;
+                    case ID_EXPLORE:
+                        name = "EXPLORE";
+                        loadFragment(lapor, name);
+                        break;
+                    case ID_MESSAGE:
+                        name = "MESSAGE";
+                        loadFragment(akun, name);
+                        break;
+                }
+            }
+        });
+        bottomNavigation.setOnReselectListener(new MeowBottomNavigation.ReselectListener() {
+            @Override
+            public void onReselectItem(MeowBottomNavigation.Model item) {
+                String        name;
+                BlankFragment akun  = new BlankFragment();
+                MapsFragment  home  = new MapsFragment();
+                Laporan       lapor = new Laporan();
+                switch (item.getId()) {
+                    case ID_HOME:
+                        name = "HOME";
+                        loadFragment(home, name);
+                        break;
+                    case ID_EXPLORE:
+                        name = "EXPLORE";
+                        loadFragment(lapor, name);
+                        break;
+                    case ID_MESSAGE:
+                        name = "MESSAGE";
+                        loadFragment(akun, name);
+                        break;
+                }
+            }
+        });
+        bottomNavigation.show(ID_HOME, true);
     }
 
     public void loadFragment(Fragment fragment, String tag) {

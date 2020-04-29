@@ -7,51 +7,58 @@
     android:orientation="vertical"
     tools:context=".BlankFragment">
 
-    <androidx.appcompat.widget.Toolbar
+    <Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:subtitle="Silakan isi data diri anda"
-        app:title="Akun" />
+        android:background="#10253a"
+        android:subtitleTextColor="#FFF"
+
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:title="Akun"
+        android:titleTextColor="#FFF" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/bgakun">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <!-- TODO: Update blank fragment layout -->
             <TextView
                 android:id="@+id/etname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="20dp"
-                android:hint="Nama : Panca Adnan Andrian"
-                android:textSize="20sp" />
 
+                android:text="Nama   : Isi nama..."
+                android:textColor="#FFF"
+                android:textSize="18sp"
+                android:textStyle="bold" />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginHorizontal="22dp"
                 android:layout_marginBottom="20dp"
-                android:background="#8D8686" />
+                android:background="#fff" />
 
             <TextView
                 android:id="@+id/nik"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
-                android:hint="Nik      : 35522111900997"
-                android:textSize="20sp" />
+                android:text="Nik        : Isi nik..."
+                android:textColor="#FFF"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginHorizontal="22dp"
-                android:background="#8D8686" />
+                android:background="#FFF" />
 
             <TextView
                 android:id="@+id/alamat"
@@ -59,10 +66,27 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="20dp"
-                android:hint="Alamat: Desa Tambahrejo 01/02 Kec Kanor"
-                android:lines="5"
-                android:textSize="20sp" />
+                android:text="Alamat : Isi alamat...."
+                android:textColor="#FFF"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="22dp"
+                android:layout_marginBottom="20dp"
+                android:background="#FFF" />
+
+            <TextView
+                android:id="@+id/nomer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:text="Nomer  : loading..."
+                android:textColor="#FFF"
+                android:textSize="18sp"
+                android:textStyle="bold" />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -71,29 +95,14 @@
                 android:background="#8D8686" />
 
             <TextView
-                android:id="@+id/nomer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:text="Nomer : +62831300137"
-                android:textSize="20sp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginHorizontal="22dp"
-                android:background="#8D8686" />
-
-            <TextView
-
                 android:id="@+id/warning"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="100dp"
                 android:gravity="center"
                 android:text="Isi nama sebelum melakukan laporan"
-                android:textColor="#FF0000" />
+                android:textColor="#FF1A1A"
+                android:textStyle="bold" />
 
             <ProgressBar
                 android:id="@+id/loading"
@@ -110,21 +119,25 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/change"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="5dp"
-                    android:gravity="center"
-                    android:text="Logut" />
-
-                <Button
                     android:id="@+id/edit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginHorizontal="5dp"
+                    android:layout_marginHorizontal="25dp"
+                    android:layout_marginVertical="3dp"
+                    android:background="@drawable/bglogin"
                     android:gravity="center"
-                    android:text="Edit" />
+                    android:text="Update" />
+
+                <Button
+                    android:id="@+id/logout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="25dp"
+                    android:background="@drawable/bglogin"
+                    android:gravity="center"
+                    android:text="Logout" />
+
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

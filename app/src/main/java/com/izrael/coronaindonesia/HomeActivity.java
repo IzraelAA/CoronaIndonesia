@@ -33,6 +33,7 @@ public class HomeActivity extends AppCompatActivity {
     ProgressBar  progressBar;
     FirebaseUser user;
     String       nohp;
+    Button login;
     private TextInputLayout layoutnama, layoutpassword, layoutnik, layoutnohp;
     PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
 
@@ -42,25 +43,20 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.item_home);
         layoutnohp = findViewById(R.id.NoHp);
         progressBar = findViewById(R.id.progressbar);
-        Button login    = findViewById(R.id.Login);
-        Button register = findViewById(R.id.Register);
+        login    = findViewById(R.id.Login);
         mAuth = FirebaseAuth.getInstance();
 
         progressBar.setVisibility(View.GONE);
-        register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(HomeActivity.this, Registrasi.class));
-            }
-        });
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 nohp = layoutnohp.getEditText().getText().toString();
                 if (nohp.isEmpty()) {
                     layoutnohp.setError("Phone number is required");
                     layoutnohp.requestFocus();
                 } else {
+                    login.setEnabled(false);
                     cekverif();
                 }
 
@@ -78,6 +74,8 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onVerificationFailed(@NonNull FirebaseException e) {
                 progressBar.setVisibility(View.GONE);
+
+                login.setEnabled(true);
                 Toast.makeText(HomeActivity.this, "Gagal", Toast.LENGTH_SHORT).show();
                 Log.d("aaa", "signInWithCredential:" + e);
             }
@@ -88,6 +86,10 @@ public class HomeActivity extends AppCompatActivity {
                 Log.d("haha", "onCodeSent: " + s);
                 progressBar.setVisibility(View.GONE);
                 Toast.makeText(HomeActivity.this, "Nomer belum terdaftar", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(HomeActivity.this, verifcation.class);
+                intent.putExtra("nohp", nohp);
+                intent.putExtra("cose", s);
+                startActivity(intent);
             }
         };
     }
@@ -113,8 +115,12 @@ public class HomeActivity extends AppCompatActivity {
                             Log.d("aaa", "signInWithCredential:success");
                             startActivity(new Intent(HomeActivity.this, MenuActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
                             progressBar.setVisibility(View.GONE);
+
+                            login.setEnabled(false);
                         } else {
                             // Sign in failed, display a message and update the UI
+                            progressBar.setVisibility(View.GONE);
+                            login.setEnabled(false);
                             Log.w("aaa", "signInWithCredential:failure", task.getException());
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                                 // The verification code entered was invalid

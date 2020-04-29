@@ -35,7 +35,7 @@ public class Laporan extends Fragment {
     FirebaseUser      user;
     DatabaseReference reference;
     String            nama, alamat, nik;
-    Button kirim, halodoc;
+    Button kirim, covid;
     String iduser, nohp;
     private EditText pesan, tempatkejadian;
 
@@ -46,6 +46,29 @@ public class Laporan extends Fragment {
         View v = inflater.inflate(R.layout.fragment_laporan, container, false);
         user = FirebaseAuth.getInstance().getCurrentUser();
         kirim = v.findViewById(R.id.laporan);
+
+        final String userid = user.getUid();
+        reference = FirebaseDatabase.getInstance().getReference("Test").child(userid);
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                profil p = dataSnapshot.getValue(profil.class);
+                nohp = p.getNohp();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+        covid =v.findViewById(R.id.covid);
+        covid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), Test_covid19.class).putExtra("userid", userid).putExtra("nohp", nohp));
+
+            }
+        });
+
         kirim.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

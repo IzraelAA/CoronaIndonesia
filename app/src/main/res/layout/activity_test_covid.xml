@@ -2,94 +2,117 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
+    android:background="@drawable/bgcoronapolos"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-    <Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:subtitle="Silakan isi sesuai kondisi kamu"
-        android:title="Corona Indonesia"
-        android:background="#FFF"/>
+        <Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#10253a"
+            android:elevation="5dp"
+            android:subtitleTextColor="#CCCACA"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:title="Pantau Covid-19" />
 
-         <androidx.cardview.widget.CardView
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:elevation="6dp"
-            app:cardCornerRadius="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            app:cardCornerRadius="20dp">
+
             <LinearLayout
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <TextView
-                    android:layout_marginTop="5dp"
-                    android:layout_marginHorizontal="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="1. Selama 7 hari terakhir, apakah kamu merasakan Demam?"/>
+                    android:layout_marginHorizontal="5dp"
+                    android:layout_marginTop="5dp"
+                    android:text="1. Selama 7 hari terakhir, apakah kamu merasakan demam?" />
+
                 <RadioGroup
+                    android:gravity="right"
+                    android:layout_marginRight="20dp"
                     android:id="@+id/radio1"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
                     <RadioButton
                         android:id="@+id/iya1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Iya"/>
+                        android:text="Iya" />
+
                     <RadioButton
                         android:id="@+id/tidak1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Tidak"/>
+                        android:text="Tidak" />
                 </RadioGroup>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
         <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:elevation="6dp"
-            app:cardCornerRadius="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            app:cardCornerRadius="20dp">
+
             <LinearLayout
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <TextView
-                    android:layout_marginTop="5dp"
-                    android:layout_marginHorizontal="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="2. Adakah disertai dengan batuk dan pilek?"/>
+                    android:layout_marginHorizontal="5dp"
+                    android:layout_marginTop="5dp"
+                    android:text="2. Adakah disertai dengan batuk dan pilek?" />
+
                 <RadioGroup
                     android:id="@+id/radio2"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:gravity="right"
+                    android:layout_marginRight="20dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
                     <RadioButton
                         android:id="@+id/iya2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Iya"/>
+                        android:text="Iya" />
+
                     <RadioButton
                         android:id="@+id/tidak2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Tidak"/>
+                        android:text="Tidak" />
                 </RadioGroup>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
         <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:elevation="6dp"
-            app:cardCornerRadius="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            app:cardCornerRadius="20dp">
+
             <LinearLayout
 
                 android:layout_width="match_parent"
@@ -104,217 +127,273 @@
                     android:text="3. Apakah kamu merasakan sakit tenggorokan? " />
 
                 <RadioGroup
+                    android:gravity="right"
+                    android:layout_marginRight="20dp"
                     android:id="@+id/radio3"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
                     <RadioButton
                         android:id="@+id/iya3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Iya"/>
+                        android:text="Iya" />
+
                     <RadioButton
                         android:id="@+id/tidak3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Tidak"/>
+                        android:text="Tidak" />
                 </RadioGroup>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
         <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:elevation="6dp"
-            app:cardCornerRadius="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            app:cardCornerRadius="20dp">
+
             <LinearLayout
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <TextView
-                    android:layout_marginTop="5dp"
-                    android:layout_marginHorizontal="5dp"
-                    android:textAlignment="gravity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="4. Saat kamu bernafas, adakah dada terasa sesak/tertekan?"/>
+                    android:layout_marginHorizontal="5dp"
+                    android:layout_marginTop="5dp"
+                    android:text="4. Saat kamu bernafas, adakah dada terasa sesak/tertekan?"
+                    android:textAlignment="gravity" />
+
                 <RadioGroup
+                    android:gravity="right"
+                    android:layout_marginRight="20dp"
                     android:id="@+id/radio4"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
                     <RadioButton
                         android:id="@+id/iya4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Iya"/>
+                        android:text="Iya" />
+
                     <RadioButton
                         android:id="@+id/tidak4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Tidak"/>
+                        android:text="Tidak" />
                 </RadioGroup>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
         <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:elevation="6dp"
-            app:cardCornerRadius="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            app:cardCornerRadius="20dp">
+
             <LinearLayout
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <TextView
-                    android:layout_marginTop="5dp"
-                    android:layout_marginHorizontal="5dp"
-                    android:textAlignment="gravity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="5. Apakah kamu pernah bertemu dengan orang yang terinfeksi COVID-19?"/>
+                    android:layout_marginHorizontal="5dp"
+                    android:layout_marginTop="5dp"
+                    android:text="5. Apakah kamu pernah bertemu dengan orang yang terinfeksi COVID-19?"
+                    android:textAlignment="gravity" />
+
                 <RadioGroup
+                    android:gravity="right"
+                    android:layout_marginRight="20dp"
                     android:id="@+id/radio5"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
                     <RadioButton
                         android:id="@+id/iya5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Iya"/>
+                        android:text="Iya" />
+
                     <RadioButton
                         android:id="@+id/tidak5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Tidak"/>
+                        android:text="Tidak" />
                 </RadioGroup>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
         <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:elevation="6dp"
-            app:cardCornerRadius="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            app:cardCornerRadius="20dp">
+
             <LinearLayout
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <TextView
-                    android:layout_marginTop="5dp"
-                    android:layout_marginHorizontal="5dp"
-                    android:textAlignment="gravity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="6. Dalam 14 hari terakhir, apakah kamu baru pulang dari luar negeri?"/>
+                    android:layout_marginHorizontal="5dp"
+                    android:layout_marginTop="5dp"
+                    android:text="6. Dalam 14 hari terakhir, apakah kamu baru pulang dari luar negeri?"
+                    android:textAlignment="gravity" />
+
                 <RadioGroup
+                    android:gravity="right"
+                    android:layout_marginRight="20dp"
                     android:id="@+id/radio6"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
                     <RadioButton
                         android:id="@+id/iya6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Iya"/>
+                        android:text="Iya" />
+
                     <RadioButton
                         android:id="@+id/tidak6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Tidak"/>
+                        android:text="Tidak" />
                 </RadioGroup>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
         <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:elevation="6dp"
-            app:cardCornerRadius="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            app:cardCornerRadius="20dp">
+
             <LinearLayout
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <TextView
-                    android:layout_marginTop="5dp"
-                    android:layout_marginHorizontal="5dp"
-                    android:textAlignment="gravity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="7. Apakah kamu tinggal dikota yang sedang darurat COVID-19?"/>
+                    android:layout_marginHorizontal="5dp"
+                    android:layout_marginTop="5dp"
+                    android:text="7. Apakah kamu tinggal dikota yang sedang darurat COVID-19?"
+                    android:textAlignment="gravity" />
+
                 <RadioGroup
                     android:id="@+id/radio7"
+                    android:gravity="right"
+                    android:layout_marginRight="20dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
                     <RadioButton
                         android:id="@+id/iya7"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Iya"/>
+                        android:text="Iya" />
+
                     <RadioButton
                         android:id="@+id/tidak7"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Tidak"/>
+                        android:text="Tidak" />
                 </RadioGroup>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
         <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:elevation="6dp"
-            app:cardCornerRadius="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            app:cardCornerRadius="20dp">
+
             <LinearLayout
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <TextView
-                    android:layout_marginTop="5dp"
-                    android:layout_marginHorizontal="5dp"
-                    android:textAlignment="gravity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="8. Pernahkah kamu mengunjungi pasien COVID-19 dirawat?"/>
+                    android:layout_marginHorizontal="5dp"
+                    android:layout_marginTop="5dp"
+                    android:text="8. Pernahkah kamu mengunjungi pasien COVID-19 dirawat?"
+                    android:textAlignment="gravity" />
+
                 <RadioGroup
                     android:id="@+id/radio8"
+                    android:gravity="right"
+                    android:layout_marginRight="20dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
                     <RadioButton
                         android:id="@+id/iya8"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Iya"/>
+                        android:text="Iya" />
+
                     <RadioButton
                         android:id="@+id/tidak8"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Tidak"/>
+                        android:text="Tidak" />
                 </RadioGroup>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
-        <ProgressBar
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/progressbar"/>
 
         <LinearLayout
-            android:layout_marginTop="50dp"
-            android:layout_marginBottom="20dp"
-            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp" />
+
+        <ProgressBar
+            android:visibility="gone"
+            android:id="@+id/progressbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
 
             <Button
-
                 android:id="@+id/Register"
-                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Submit"/>
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/bglogin"
+                android:text="Submit" />
         </LinearLayout>
-</LinearLayout>
+    </LinearLayout>
 </ScrollView>

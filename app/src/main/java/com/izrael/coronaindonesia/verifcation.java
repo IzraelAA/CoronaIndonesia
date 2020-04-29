@@ -33,29 +33,36 @@ public class verifcation extends AppCompatActivity {
     ProgressBar       progressBar;
     DatabaseReference reference;
     String            nama, password, nik, nohp, codesend;
-
+      Button verif;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verifcation);
         code = findViewById(R.id.code);
         progressBar = findViewById(R.id.progressbar);
-        final Button verif = findViewById(R.id.Register);
+        verif = findViewById(R.id.Register);
         TextView     nonya = findViewById(R.id.textnohp);
         progressBar.setVisibility(View.GONE);
         Bundle bundle = getIntent().getExtras();
         nohp = bundle.getString("nohp");
+        codesend = bundle.getString("cose");
         nonya.setText(nohp);
         mAuth = FirebaseAuth.getInstance();
         Log.d("pp:", "pp : " + nohp);
         verif.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progressBar.setVisibility(View.VISIBLE);
-                verfiysigin();
+                if (code.getEditText().getText().toString().equals("")){
+                    Toast.makeText(verifcation.this, "Isi Code terlebih dahulu", Toast.LENGTH_SHORT).show();
+                }else {
+
+                    progressBar.setVisibility(View.VISIBLE);
+                    verif.setEnabled(false);
+                    verfiysigin();
+                }
+
             }
         });
-        cekverif();
     }
 
     private void cekverif() {
@@ -92,6 +99,7 @@ public class verifcation extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
 
+                                        verif.setEnabled(true);
                                         progressBar.setVisibility(View.GONE);
                                         startActivity(new Intent(verifcation.this, Test_covid.class).putExtra("userid", userid).putExtra("nohp", nohp));
                                         finish();
@@ -99,6 +107,10 @@ public class verifcation extends AppCompatActivity {
                                 }
                             });
                         } else {
+
+                            verif.setEnabled(true);
+                            progressBar.setVisibility(View.GONE);
+                            Toast.makeText(verifcation.this, "Gagal", Toast.LENGTH_SHORT).show();
                             // Sign in failed, display a message and update the UI
                             Log.w("aaa", "signInWithCredential:failure", task.getException());
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
@@ -123,12 +135,5 @@ public class verifcation extends AppCompatActivity {
 
         }
 
-        @Override
-        public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-            super.onCodeSent(s, forceResendingToken);
-            String b = s;
-            Log.d("haha", "onCodeSent: " + b);
-            codesend = b;
-        }
     };
 }

@@ -39,7 +39,6 @@ public class BlankFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_blank, container, false);
         nama = v.findViewById(R.id.etname);
         nik = v.findViewById(R.id.nik);
@@ -47,9 +46,17 @@ public class BlankFragment extends Fragment {
         user = FirebaseAuth.getInstance().getCurrentUser();
         warning = v.findViewById(R.id.warning);
         nomer = v.findViewById(R.id.nomer);
+        logout = v.findViewById(R.id.logout);
         btnedit = v.findViewById(R.id.edit);
         pg = v.findViewById(R.id.loading);
         pg.setVisibility(View.GONE);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(getActivity(),HomeActivity.class));
+            }
+        });
         btnedit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,7 +75,7 @@ public class BlankFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 profil p = dataSnapshot.getValue(profil.class);
                 nomerteks = p.getNohp();
-                nomer.setText("Nomer : " + nomerteks);
+                nomer.setText("Nomer  : " + nomerteks);
                 Log.d("panca", "" + p.getNama());
                 Log.d("panca", "" + p.getNohp());
                 if (p.getNama() == null) {
@@ -77,7 +84,7 @@ public class BlankFragment extends Fragment {
                 } else {
 
                     namateks =  p.getNama();
-                    nama.setText("Nama : " +namateks);
+                    nama.setText("Nama   : " +namateks);
                     warning.setVisibility(View.GONE);
                 }
                 if (p.getAlamat() == null) {
@@ -93,7 +100,7 @@ public class BlankFragment extends Fragment {
                     warning.setVisibility(View.VISIBLE);
                 } else {
                     nikteks =  p.getNik();
-                    nik.setText("Nik      : " +nikteks);
+                    nik.setText("Nik        : " +nikteks);
                     warning.setVisibility(View.GONE);
                 }
             }

@@ -1,12 +1,16 @@
 package com.izrael.coronaindonesia;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -15,9 +19,10 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 
-public class Test_covid extends AppCompatActivity {
+
+public class Test_covid19 extends AppCompatActivity {
     String userid, nohp;
-    Button submit;
+    Button            submit;
     ProgressBar       progressBar;
     DatabaseReference reference;
     RadioButton       radioButton1, radioButton2, radioButton3, radioButton4, radioButton5, radioButton6, radioButton7, radioButton8;
@@ -39,7 +44,7 @@ public class Test_covid extends AppCompatActivity {
         radioGroup7 = findViewById(R.id.radio7);
         radioGroup8 = findViewById(R.id.radio8);
         submit = findViewById(R.id.Register);
-        Bundle       bundle = getIntent().getExtras();
+        Bundle bundle = getIntent().getExtras();
         userid = bundle.getString("userid");
         nohp = bundle.getString("nohp");
         submit.setOnClickListener(new View.OnClickListener() {
@@ -59,7 +64,7 @@ public class Test_covid extends AppCompatActivity {
                 radioButton2 = findViewById(radioId2);
                 radioButton3 = findViewById(radioId3);
                 String Status = null;
-                String inn = null;
+                String inn    = null;
                 radioButton4 = findViewById(radioId4);
                 radioButton5 = findViewById(radioId5);
                 radioButton6 = findViewById(radioId6);
@@ -73,22 +78,26 @@ public class Test_covid extends AppCompatActivity {
                 r6 = "" + radioButton6.getText();
                 r7 = "" + radioButton7.getText();
                 r8 = "" + radioButton8.getText();
-                if (r1.equals("Iya")&&r2.equals("Iya")&&r3.equals("Iya")&&r4.equals("Iya")){
-                    Status = "PDP";
-                    inn = "Berdasarkan hasil test, status kamu saat ini PDP (Pasien Dalam Pengawasan). Segera periksakan dirimu ke pelayanan kesehatan terdekat yaa. Tetap dirumah dan isolasi diri kamu secara mandiri.";
-                }else if (r5.equals("Iya")&&r6.equals("Iya")&&r7.equals("Iya")&&r8.equals("Iya")){
-                    Status = "ODP";
-                    inn = "Berdasarkan hasil test, status kamu saat ini ODP (Orang Dalam Pengawasan). Tetap jaga kesehatan serta jaga jarak saat beraktifitas yaa.";
-                }else if (r1.equals("Iya")&&r2.equals("Iya")&&r3.equals("Iya")&&r4.equals("Iya")&&r5.equals("Iya")&&r6.equals("Iya")&&r7.equals("Iya")&&r8.equals("Iya")){
-                    Status = "Positive";
-                    inn = "Berdasarkan hasil test, status kamu saat ini Positif. Segera periksakan dirimu ke pelayanan kesehatan terdekat yaa. Tetap dirumah dan isolasi diri kamu secara mandiri. Bila kondisi semakin memburuk, segera hubungi IGD terdekat untuk mendapatkan perawatan intensif.";
-                }else if (r1.equals(null) ||r2.equals(null)||r3.equals(null)|| r4.equals(null) || r5.equals(null) && r6.equals(null) || r7.equals(null) || r8.equals(null)){
-                    Toast.makeText(Test_covid.this, "", Toast.LENGTH_SHORT).show();
-                }else {
-                    Status = "Negative";
-                    inn = "Berdasarkan hasil test, status kamu saat ini Negatif. Tetap jaga kesehatan serta jaga jarak saat beraktifitas yaa.";
+                if (r1 == null || r2 == null || r3 == null || r4 == null || r5 == null || r6 == null || r7 == null || r8 == null) {
+                    Toast.makeText(Test_covid19.this, "Jangan kosongkan test tersebut", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (r1.equals("Iya") && r2.equals("Iya") && r3.equals("Iya") && r4.equals("Iya") && r5.equals("Iya") && r6.equals("Iya") && r7.equals("Iya") && r8.equals("Iya")) {
+                        Status = "Positive";
+                        inn = "Berdasarkan hasil test, status kamu saat ini positif.Tetap dirumah dan isolasi diri kamu secara mandiri ya. Bila kondisi semakin memburuk, segera hubungi IGD terdekat untuk mendapatkan perawatan intensif.";
+                    } else {
+                        if (r1.equals("Iya") && r2.equals("Iya") && r3.equals("Iya") && r4.equals("Iya")) {
+                            Status = "PDP";
+                            inn = "Berdasarkan hasil test, status kamu saat ini PDP (Pasien Dalam Pengawasan). Segera periksakan dirimu ke pelayanan kesehatan terdekat ya. Tetap dirumah dan isolasi diri kamu secara mandiri.";
+                        } else if (r5.equals("Iya") && r6.equals("Iya") && r7.equals("Iya") && r8.equals("Iya")) {
+                            Status = "ODP";
+                            inn = "Berdasarkan hasil test, status kamu saat ini ODP (Orang Dalam Pengawasan). Tetap jaga kesehatan serta jaga jarak saat beraktifitas ya.";
+                        } else {
+                            Status = "Negative";
+                            inn = "Berdasarkan hasil test, status kamu saat ini negatif. Tetap jaga kesehatan serta jaga jarak saat beraktifitas ya.";
+                        }
+                    }
                 }
-                reference = FirebaseDatabase.getInstance().getReference("Test").child(userid);
+                reference = FirebaseDatabase.getInstance().getReference("Test").child(userid).push();
                 HashMap<String, String> hashmap = new HashMap<>();
                 hashmap.put("userid", userid);
                 hashmap.put("nohp", nohp);
@@ -100,10 +109,6 @@ public class Test_covid extends AppCompatActivity {
                 hashmap.put("6", r6);
                 hashmap.put("7", r7);
                 hashmap.put("8", r8);
-                hashmap.put("location", "");
-                hashmap.put("nama", "");
-                hashmap.put("latitude", "");
-                hashmap.put("longtitude", "");
                 hashmap.put("status", Status);
                 final String finalInn = inn;
                 reference.setValue(hashmap).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -111,15 +116,15 @@ public class Test_covid extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             submit.setEnabled(true);
-                            Intent intent = new Intent(Test_covid.this, thanks.class);
-                            intent.putExtra("inn", finalInn);
                             progressBar.setVisibility(View.GONE);
+                            Intent intent = new Intent(Test_covid19.this, thanks.class);
+                            intent.putExtra("inn", finalInn);
                             startActivity(intent);
                             finish();
-                        }else {
+                        } else {
                             submit.setEnabled(true);
                             progressBar.setVisibility(View.GONE);
-                            Toast.makeText(Test_covid.this, "gagal", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Test_covid19.this, "gagal", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

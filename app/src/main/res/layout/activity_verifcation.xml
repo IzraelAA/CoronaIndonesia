@@ -1,85 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:background="@drawable/bgcoronapolos"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <Toolbar
+        android:elevation="5dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:title="Corona Indonesia"
-        android:background="#FFF"/>
-    <ProgressBar
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/progressbar"/>
+        android:background="#10253a"
+        android:title="Pantau Covid-19" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
         <androidx.cardview.widget.CardView
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
             android:id="@+id/cek"
-            android:elevation="6dp"
-            app:cardCornerRadius="20dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:elevation="6dp"
+
+            app:cardCornerRadius="20dp">
+
             <LinearLayout
-                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:orientation="vertical">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:text="Verification"
-                    android:textSize="29sp"
-                    android:textStyle="bold"/>
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+
                 <TextView
+
                     android:id="@+id/textnohp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="+6283130015737"
-                    android:layout_marginHorizontal="10dp"/>
-                <com.google.android.material.textfield.TextInputLayout
                     android:layout_marginHorizontal="10dp"
-                    android:textColorHint="#000"
-                    app:hintTextColor="#000"
+                    android:text="+6283130015737" />
+
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/code"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Code verifikasi">
+                    android:layout_marginHorizontal="10dp"
+                    android:hint="Code verifikasi"
+                    android:textColorHint="#000"
+                    app:hintTextColor="#000">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/inputNama"
-                        android:drawablePadding="5dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text"/>
+                        android:drawablePadding="5dp"
+                        android:inputType="text" />
 
                 </com.google.android.material.textfield.TextInputLayout>
-                <LinearLayout
+
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="130dp"
+                    android:layout_marginTop="10dp"
                     android:gravity="center">
 
                     <Button
-
+                        android:layout_marginTop="3dp"
                         android:id="@+id/Register"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentEnd="true"
                         android:layout_gravity="center"
+                        android:layout_marginStart="125dp"
+                        android:layout_marginEnd="125dp"
+                        android:background="@drawable/bglogin"
                         android:text="Submit" />
-                </LinearLayout>
+
+                    <ProgressBar
+                        android:id="@+id/progressbar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="75dp" />
+                </RelativeLayout>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="anda tidak mendapatkan code?kirim ulang"/>
+                    android:layout_marginBottom="10dp"
+                    android:text="anda tidak mendapatkan code?kirim ulang" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
